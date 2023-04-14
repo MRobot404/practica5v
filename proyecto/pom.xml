@@ -16,7 +16,7 @@
 	<properties>
 		<java.version>11</java.version>
 	</properties>
-		<dependencies>
+<dependencies>
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-data-jpa</artifactId>
@@ -51,6 +51,11 @@
       <artifactId>lombok</artifactId>
       <optional>true</optional>
     </dependency>
+            <dependency>
+            <groupId>org.eclipse.persistence</groupId>
+            <artifactId>jakarta.persistence</artifactId>
+            <version>2.2.3</version>
+        </dependency>
     		<dependency>
 			<groupId>org.modelmapper</groupId>
 			<artifactId>modelmapper</artifactId>
