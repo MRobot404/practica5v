@@ -13,8 +13,8 @@ import lombok.Data;
 public class CertificadosDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private BigDecimal id;
-	private String codigoContratante;
-	private String codigoAsegurado;
+	private BigDecimal codigoContratante;
+	private BigDecimal codigoAsegurado;
 	private BigDecimal prima;
 	private BigDecimal sumaAsegurada;
 	private Date fechaInicio;
@@ -24,5 +24,6 @@ public class CertificadosDTO implements Serializable {
 	private Date grabacionFecha;
 	private String modificacionUsuario;
 	private Date modificacionFecha;
+	private BigDecimal seguroId;
 	private List<Siniestros> siniestrosList;
 }

@@ -39,7 +39,7 @@ public class Seguros implements Serializable{
 	    private Date fechaFin;
 	    
 	    @Column(name = "CODIGO_CONTRATANTE")
-	    private String codigoContratante;
+	    private BigDecimal codigoContratante;
 	    
 	    @Column(name = "PRIMA_TOTAL")
 	    private BigDecimal primaTotal;

@@ -17,7 +17,7 @@ public class SegurosDTO implements Serializable {
 	private String tipo;
 	private Date fechaInicio;
 	 private Date fechaFin;
-	 private String codigoContratante;
+	 private BigDecimal codigoContratante;
 	 private BigDecimal primaTotal;
 	 private BigDecimal sumaAsegurada;
 	 private Character estado;
