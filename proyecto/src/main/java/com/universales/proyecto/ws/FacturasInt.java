@@ -2,6 +2,7 @@ package com.universales.proyecto.ws;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,5 +27,8 @@ public interface FacturasInt {
 
 	@PostMapping("/guardar")
 	Facturas guardar(@RequestBody FacturasDTO facturas);
+	
+	@GetMapping("/paginar")
+	Page<Facturas>getFacturasPaginado(int page, int size);
 
 }

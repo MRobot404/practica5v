@@ -2,6 +2,7 @@ package com.universales.proyecto.ws;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,4 +25,7 @@ public interface CoberturasInt {
 	
 	@PostMapping("/guardar")
 	Coberturas guardar(@RequestBody CoberturasDTO coberturas);
+	
+	@GetMapping("/paginar")
+	Page<Coberturas> getCoberturasPaginado(int page, int size);
 }

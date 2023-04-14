@@ -4,6 +4,9 @@ import java.util.List;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
 import com.universales.proyecto.dto.CoberturasDTO;
@@ -34,4 +37,12 @@ public class CoberturasImpl implements CoberturasInt {
 		return coberturasRepository.save(cobertura);
 	}
 
+	@Override
+	public Page<Coberturas> getCoberturasPaginado(int page, int size) {
+		Pageable pageable=PageRequest.of(page, size);
+		return coberturasRepository.findAll(pageable);
+	}
+	
+	
+	
 }

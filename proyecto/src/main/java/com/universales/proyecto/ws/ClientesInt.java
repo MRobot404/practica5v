@@ -2,6 +2,7 @@ package com.universales.proyecto.ws;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,5 +25,8 @@ public interface ClientesInt {
 
 	@PostMapping("/guardar")
 	Clientes guardar(@RequestBody ClientesDTO clientes);
+	
+	@GetMapping("/paginar")
+	Page<Clientes> getClientesPaginado(int page, int size);
 	
 }

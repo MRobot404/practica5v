@@ -4,6 +4,9 @@ import java.util.List;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
 import com.universales.proyecto.dto.CertificadosDTO;
@@ -31,6 +34,13 @@ public class CertificadosImpl implements CertificadosInt{
 	@Override
 	public List<Certificados> buscar() {
 		return certificadosRepository.findAll();
+	}
+	
+	@Override
+	public Page<Certificados>getCertificadosPaginado(int page, int size){
+		Pageable pagebale=PageRequest.of(page, size);
+		return certificadosRepository.findAll(pagebale);
+		
 	}
 
 }
