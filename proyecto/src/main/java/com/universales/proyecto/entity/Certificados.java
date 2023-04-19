@@ -28,10 +28,10 @@ public class Certificados implements Serializable {
 	private BigDecimal id;
 
 	@Column(name = "CODIGO_CONTRATANTE")
-	private String codigoContratante;
+	private BigDecimal codigoContratante;
 
 	@Column(name = "CODIGO_ASEGURADO")
-	private String codigoAsegurado;
+	private BigDecimal codigoAsegurado;
 
 	@Column(name = "PRIMA")
 	private BigDecimal prima;
