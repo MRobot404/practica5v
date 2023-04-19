@@ -9,6 +9,11 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { FormsModule } from '@angular/forms';
 import { HomeComponent } from './home/home.component';
 import { CrearClienteComponent } from './crear-cliente/crear-cliente.component';
+import { ToastModule } from 'primeng/toast';
+import { HttpClientModule } from '@angular/common/http';
+import { MantenerClienteComponent } from './mantener-cliente/mantener-cliente.component';
+import { DropdownModule } from 'primeng/dropdown';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -17,12 +22,17 @@ import { CrearClienteComponent } from './crear-cliente/crear-cliente.component';
     NavbarComponent,
     HomeComponent,
     CrearClienteComponent,
+    MantenerClienteComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    NgbModule
+    NgbModule,
+    ToastModule,
+    HttpClientModule,
+    DropdownModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
