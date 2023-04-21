@@ -29,6 +29,7 @@ public interface ClientesInt {
 	@GetMapping("/paginar")
 	Page<Clientes> getClientesPaginado(int page, int size);
 
+
 	@GetMapping("/mantenimiento")
 	public List<Clientes> buscarPorCampos(@RequestParam(required = false) String nombre,
 			@RequestParam(required = false) String apellido, @RequestParam(required = false) String dpi,
