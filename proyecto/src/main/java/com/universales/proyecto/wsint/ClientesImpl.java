@@ -43,6 +43,13 @@ public class ClientesImpl implements ClientesInt {
 		return clientesRepository.findAll(pageable);
 	}
 
+    @Override
+    public List<Clientes> buscarPorCampos(String nombre,  String apellido, 
+            String dpi, String nit) {
+        return clientesRepository.findByNombreIgnoreCaseAndApellidoIgnoreCaseOrDpiIgnoreCaseOrNitIgnoreCase(nombre, apellido, dpi, nit);
+    }
+	
+	
 	
 
 }
