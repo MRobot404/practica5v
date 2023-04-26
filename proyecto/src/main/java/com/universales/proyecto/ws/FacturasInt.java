@@ -18,7 +18,7 @@ import com.universales.proyecto.entity.Facturas;
 
 
 @RestController
-@RequestMapping("/facturas")
+@RequestMapping("/auth/facturas")
 @CrossOrigin
 public interface FacturasInt {
 	

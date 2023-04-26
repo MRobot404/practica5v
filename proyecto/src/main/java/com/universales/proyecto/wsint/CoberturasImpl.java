@@ -42,6 +42,14 @@ public class CoberturasImpl implements CoberturasInt {
 		Pageable pageable=PageRequest.of(page, size);
 		return coberturasRepository.findAll(pageable);
 	}
+
+	@Override
+	public Page<Coberturas> buscarPorCampos(String valor, int page, int size) {
+		Pageable pageable =PageRequest.of(page, size);
+		String valorMayuscula = valor.toUpperCase();
+		String valorConPorcentaje =  valorMayuscula.replace(" ", "%");
+		return coberturasRepository.findByEstadoOrDescripcion(valorConPorcentaje, pageable);
+	}
 	
 	
 	

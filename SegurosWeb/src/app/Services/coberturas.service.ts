@@ -5,8 +5,8 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class ClientesService {
-  private readonly URL = 'auth/clientes/';
+export class CoberturasService {
+  private readonly URL = 'auth/coberturas/';
   constructor(private http: HttpClient) { }
 
   guardarCliente(cliente: any) {
@@ -18,7 +18,6 @@ export class ClientesService {
       )
 
   }
-
   mantenimientoCliente(parametro: any, page: number, size: number): Observable<any> {
     return this.http
       .get<any>(this.URL + 'mantenimiento/' + parametro + '/' + page + '/' + size);

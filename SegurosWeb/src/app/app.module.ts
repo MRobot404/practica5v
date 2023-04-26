@@ -14,7 +14,18 @@ import { HttpClientModule } from '@angular/common/http';
 import { MantenerClienteComponent } from './mantener-cliente/mantener-cliente.component';
 import { DropdownModule } from 'primeng/dropdown';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
+import { MenubarModule } from 'primeng/menubar';
+import { ConsultarFacturaComponent } from './consultar-factura/consultar-factura.component';
+import { PasswordModule } from 'primeng/password';
+import { ButtonModule } from 'primeng/button';
+import { TableModule } from 'primeng/table';
+import { MessagesModule } from 'primeng/messages';
+import { PaginatorModule } from 'primeng/paginator';
+import { ConsultarSiniestroComponent } from './consultar-siniestro/consultar-siniestro.component';
+import { CrearCoberturaComponent } from './crear-cobertura/crear-cobertura.component';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { InputSwitchModule } from 'primeng/inputswitch';
+import { MantenerCoberturaComponent } from './mantener-cobertura/mantener-cobertura.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -23,6 +34,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     HomeComponent,
     CrearClienteComponent,
     MantenerClienteComponent,
+    ConsultarFacturaComponent,
+    ConsultarSiniestroComponent,
+    CrearCoberturaComponent,
+    MantenerCoberturaComponent,
   ],
   imports: [
     BrowserModule,
@@ -32,7 +47,16 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ToastModule,
     HttpClientModule,
     DropdownModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MenubarModule,
+    ButtonModule,
+    TableModule,
+    PaginatorModule,
+    MessagesModule,
+    ToastModule,
+    PasswordModule,
+    InputTextareaModule,
+    InputSwitchModule
   ],
   providers: [],
   bootstrap: [AppComponent]

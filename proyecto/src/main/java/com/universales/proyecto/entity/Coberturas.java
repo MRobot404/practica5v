@@ -1,4 +1,4 @@
-package com.universales.proyecto.entity;
+	package com.universales.proyecto.entity;
 
 import java.io.Serializable;
 import java.math.BigDecimal;

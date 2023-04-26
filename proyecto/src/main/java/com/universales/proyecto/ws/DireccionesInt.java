@@ -15,7 +15,7 @@ import com.universales.proyecto.entity.Direcciones;
 
 
 @RestController
-@RequestMapping("/direcciones")
+@RequestMapping("/auth/direcciones")
 @CrossOrigin
 public interface DireccionesInt {
 

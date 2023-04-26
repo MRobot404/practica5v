@@ -16,7 +16,7 @@ import com.universales.proyecto.entity.Siniestros;
 
 
 @RestController
-@RequestMapping("/siniestros")
+@RequestMapping("/auth/siniestros")
 @CrossOrigin
 public interface SiniestrosInt {
 

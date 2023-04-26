@@ -16,7 +16,7 @@ import com.universales.proyecto.entity.Certificados;
 
 
 @RestController
-@RequestMapping("/certificados")
+@RequestMapping("/auth/certificados")
 @CrossOrigin
 public interface CertificadosInt {
 	

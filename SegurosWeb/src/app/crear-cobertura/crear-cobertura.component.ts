@@ -1,19 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { MessageService } from 'primeng/api';
-import { ClientesService } from '../Services/clientes.service';
+import { CoberturasService } from '../Services/coberturas.service';
 
 @Component({
-  selector: 'app-crear-cliente',
-  templateUrl: './crear-cliente.component.html',
-  styleUrls: ['./crear-cliente.component.css'],
+  selector: 'app-crear-cobertura',
+  templateUrl: './crear-cobertura.component.html',
+  styleUrls: ['./crear-cobertura.component.css'],
   providers: [MessageService]
 })
-export class CrearClienteComponent implements OnInit {
+export class CrearCoberturaComponent implements OnInit {
   cliente: any = {};
   estado: any;
   opciones: any = [];
-
-  constructor(private messageService: MessageService, private clientesService: ClientesService) { }
+  constructor(private messageService: MessageService, private clientesService: CoberturasService) { }
   ngOnInit() {
     this.opciones = [
       { estado: 'A' },
@@ -39,7 +38,7 @@ export class CrearClienteComponent implements OnInit {
   }
 
   showSuccessClientes() {
-    this.messageService.add({ severity: 'success', summary: 'Guardado', detail: 'Su cliente fue guardado' });
+    this.messageService.add({ severity: 'success', summary: 'Guardado', detail: 'Su cobertura fue guardada' });
   }
 
 }

@@ -4,35 +4,33 @@
     <div style="display: flex; align-items: center;">
         <input type="text" class="form-control" #inputElement (input)="evaluarValorInput($event)" required />
         &nbsp; &nbsp;
-        <p-button label="Buscar" styleClass="p-button-primary"(click)="buscar()"
+        <p-button label="Buscar" styleClass="p-button-success" [loading]="loading" (click)="buscar()"
             class="text-center" [disabled]="disabled" icon="pi pi-search"></p-button>
     </div>
     <br>
     <div *ngIf="tabla" class="card">
-        <p-table [value]="clientes" [paginator]="true" [rows]="sizePage" [lazy]="true" [totalRecords]="totalElements"
+        <p-table [value]="coberturas" [paginator]="true" [rows]="sizePage" [lazy]="true" [totalRecords]="totalElements"
             [showCurrentPageReport]="true" (onPage)=onPageChange($event)
             currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
             [rowsPerPageOptions]="[1,2,3,5, 10, 25, 50]">
             <ng-template pTemplate="header">
                 <tr>
-                    <th>Nombre</th>
-                    <th>Apellido</th>
-                    <th>Nit</th>
-                    <th>Dpi</th>
+                    <th>Descripción</th>
+                    <th>Costo</th>
+                    <th>Suma Asegurada</th>
                     <th>Estado</th>
                     <th></th>
                 </tr>
             </ng-template>
-            <ng-template pTemplate="body" let-cliente>
+            <ng-template pTemplate="body" let-cobertura>
                 <tr>
-                    <td>{{cliente.nombre}}</td>
-                    <td>{{cliente.apellido}}</td>
-                    <td>{{cliente.nit}}</td>
-                    <td>{{cliente.dpi}}</td>
-                    <td>{{cliente.estado}}</td>
+                    <td>{{cobertura.descripcion}}</td>
+                    <td>{{cobertura.costo}}</td>
+                    <td>{{cobertura.sumaAsegurada}}</td>
+                    <td>{{cobertura.estado}}</td>
                     <td>
                         <p-button icon="pi pi-pencil" styleClass="p-button-raised p-button-text p-button-secondary"
-                            (click)="editarCliente(cliente)"></p-button>
+                            (click)="crear(cobertura)"></p-button>
                     </td>
                 </tr>
             </ng-template>
@@ -43,30 +41,19 @@
             <div class="col-6">
                 <div *ngIf="editar" class="card">
                     <span class="p-inputgroup-addon">
-                        <label>Dirección:</label>
+                        <label>Descripción:</label>
                     </span>
                     &nbsp;
-                    <div class="row justify-content-start">
+                    <div class="row justify-content-md-center">
                         <div class="col-8">
-                            <p-button pRipple label="Agregar dirección" (click)="agregarDireccion()"></p-button>
-                        </div>
-                    </div>
-                    <div class="row" *ngFor="let direccion of tempCliente.direccioneslist">
-                        <div class="btn btn-danger" (click)="eliminarDireccion(direccion)">Eliminar Dirección</div>
-                        <div class="form-group">
-                            <label>Dirección:</label>
-                            <input type="text" class="form-control" [(ngModel)]="direccion.direccion" [ngModelOptions]="{standalone:true}" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Estado:</label>
-                            <input type="checkbox" class="form-control" [(ngModel)]="direccion.estado" [ngModelOptions]="{standalone:true}" required>
+                            <textarea rows="3" cols="50" placeholder="Descripción" pInputTextarea [autoResize]="true"
+                                [(ngModel)]="tempCobertura.descripcion"></textarea>
                         </div>
                     </div>
                     &nbsp;
                     <span class="p-inputgroup-addon">
                         <label>Estado:</label>
                     </span>
-                    &nbsp;  
                     <div class="row justify-content-md-center">
                         <div class="col-md-auto">
                             <div class="form-check form-switch">
@@ -81,7 +68,7 @@
                         <div class="col-md-auto">
                             <div class="card flex justify-content-center">
                                 <button pButton pRipple label="Guardar" (click)="guardar()"
-                                    class="p-button-primary"></button>
+                                    class="p-button-success"></button>
                             </div>
                         </div>
                     </div>

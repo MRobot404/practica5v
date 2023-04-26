@@ -16,7 +16,7 @@ import com.universales.proyecto.entity.Seguros;
 
 
 @RestController
-@RequestMapping("/seguros")
+@RequestMapping("/auth/seguros")
 @CrossOrigin
 public interface SegurosInt {
 	

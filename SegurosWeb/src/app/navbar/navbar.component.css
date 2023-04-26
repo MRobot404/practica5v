@@ -1,13 +1,14 @@
-
-.navbar .nav-item .nav-link:hover {
+.card .nav-item .nav-link:hover {
     background-color: #c9d227;
-    color:#000;
+    color: #000;
 }
+
 .navbar-nav .nav-item .nav-link {
     background-color: #003974;
-    color:#fff;
+    color: #fff;
 }
+
 .navbar-nav .nav-item .active {
     background-color: #c9d227;
-    color: #000; 
+    color: #000;
 }
