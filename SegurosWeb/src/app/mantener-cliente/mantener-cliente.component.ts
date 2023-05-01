@@ -70,6 +70,8 @@ export class MantenerClienteComponent implements OnInit {
   editarCliente(cliente: any) {
     this.tabla = false;
     this.editar = true;
+    this.tempCliente=cliente;
+    console.log(this.tempCliente)
   }
 
   activo: boolean = true;

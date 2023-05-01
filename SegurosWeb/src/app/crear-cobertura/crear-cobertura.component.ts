@@ -9,10 +9,10 @@ import { CoberturasService } from '../Services/coberturas.service';
   providers: [MessageService]
 })
 export class CrearCoberturaComponent implements OnInit {
-  cliente: any = {};
+  cobertura: any = {};
   estado: any;
   opciones: any = [];
-  constructor(private messageService: MessageService, private clientesService: CoberturasService) { }
+  constructor(private messageService: MessageService, private coberturaService: CoberturasService) { }
   ngOnInit() {
     this.opciones = [
       { estado: 'A' },
@@ -24,20 +24,20 @@ export class CrearCoberturaComponent implements OnInit {
 
     let formulario: any = document.getElementById("formulario");
     let valido = formulario.reportValidity();
-    this.cliente.estado = this.estado.estado;
+    this.cobertura.estado = this.estado.estado;
     if (valido) {
-      this.clientesService.guardarCliente(this.cliente).subscribe(
+      this.coberturaService.guardarCobertura(this.cobertura).subscribe(
         (response: any) => {
           setTimeout(() => {
-            this.showSuccessClientes()
-            this.cliente = [];
+            this.showSuccesscoberturas()
+            this.cobertura = [];
           }, 500);
         }
       );
     }
   }
 
-  showSuccessClientes() {
+  showSuccesscoberturas() {
     this.messageService.add({ severity: 'success', summary: 'Guardado', detail: 'Su cobertura fue guardada' });
   }
 

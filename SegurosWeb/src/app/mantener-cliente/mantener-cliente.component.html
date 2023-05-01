@@ -51,8 +51,8 @@
                             <p-button pRipple label="Agregar dirección" (click)="agregarDireccion()"></p-button>
                         </div>
                     </div>
-                    <div class="row" *ngFor="let direccion of tempCliente.direccioneslist">
-                        <div class="btn btn-danger" (click)="eliminarDireccion(direccion)">Eliminar Dirección</div>
+                    <div class="row" *ngFor="let direccion of tempCliente.direccionesList">
+                        <div class="btn btn-danger" *ngIf="!direccion.id" (click)="eliminarDireccion(direccion)">Eliminar Dirección</div>
                         <div class="form-group">
                             <label>Dirección:</label>
                             <input type="text" class="form-control" [(ngModel)]="direccion.direccion" [ngModelOptions]="{standalone:true}" required>

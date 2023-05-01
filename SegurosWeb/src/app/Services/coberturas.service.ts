@@ -9,12 +9,12 @@ export class CoberturasService {
   private readonly URL = 'auth/coberturas/';
   constructor(private http: HttpClient) { }
 
-  guardarCliente(cliente: any) {
+  guardarCobertura(cobertura: any) {
 
     return this.http
       .post<any>(
         this.URL + 'guardar',
-        cliente
+        cobertura
       )
 
   }

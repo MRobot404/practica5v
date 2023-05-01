@@ -13,6 +13,6 @@ public interface ClientesRepository extends JpaRepository<Clientes, Serializable
 
 	Page<Clientes> findAll(Pageable pageable);
 
-	@Query(value = "SELECT * FROM CLIENTES WHERE UPPER(NOMBRE||APELLIDO||NIT||DPI||APELLIDO||NOMBRE) LIKE %?1%", nativeQuery = true)
+	@Query(value = "SELECT * FROM CLIENTES WHERE UPPER(NOMBRE||APELLIDO||NIT||DPI||APELLIDO||NOMBRE) LIKE %:valor%", nativeQuery = true)
 	Page<Clientes> findByNombreOrNitOrDpi(String valor, Pageable pageable);
 }

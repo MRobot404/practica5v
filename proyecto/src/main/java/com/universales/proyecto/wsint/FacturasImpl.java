@@ -1,6 +1,10 @@
 package com.universales.proyecto.wsint;
 
 import java.util.List;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +22,8 @@ import com.universales.proyecto.ws.FacturasInt;
 
 @Component
 public class FacturasImpl  implements FacturasInt{
+	
+	Logger logger = LogManager.getLogger(Facturas.class);
 	
 	@Autowired
 	FacturasRepository facturasRepository;
@@ -40,6 +46,14 @@ public class FacturasImpl  implements FacturasInt{
 	public Page<Facturas> getFacturasPaginado(int page, int size) {
 		Pageable pageable=PageRequest.of(page, size);
 		return facturasRepository.findAll(pageable);
+	}
+	
+	@Override
+	public Page<Facturas> buscarPorCampos(String valor, int page, int size) {
+	 Pageable pageable = PageRequest.of(page, size);
+		String valorConPorcentaje = "%" + valor.replace(" ", "%") + "%";
+		logger.error(valorConPorcentaje);
+		return facturasRepository.findByNitOrPoliza(valorConPorcentaje, pageable);
 	}
 	
 	
