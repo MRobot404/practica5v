@@ -4,8 +4,8 @@
     <div style="display: flex; align-items: center;">
         <input type="text" class="form-control" #inputElement (input)="evaluarValorInput($event)" required />
         &nbsp; &nbsp;
-        <p-button label="Buscar" styleClass="p-button-primary"(click)="buscar()"
-            class="text-center" [disabled]="disabled" icon="pi pi-search"></p-button>
+        <p-button label="Buscar" styleClass="p-button-primary" (click)="buscar()" class="text-center"
+            [disabled]="disabled" icon="pi pi-search"></p-button>
     </div>
     <br>
     <div *ngIf="tabla" class="card">
@@ -42,51 +42,51 @@
         <div class="row justify-content-md-center">
             <div class="col-6">
                 <div *ngIf="editar" class="card">
-                    <span class="p-inputgroup-addon">
-                        <label>Dirección:</label>
-                    </span>
-                    &nbsp;
-                    <div class="row justify-content-start">
-                        <div class="col-8">
-                            <p-button pRipple label="Agregar dirección" (click)="agregarDireccion()"></p-button>
-                        </div>
-                    </div>
-                    <div class="row" *ngFor="let direccion of tempCliente.direccionesList">
-                        <div class="btn btn-danger" *ngIf="!direccion.id" (click)="eliminarDireccion(direccion)">Eliminar Dirección</div>
-                        <div class="form-group">
+                    <form (ngSubmit)="guardar()" id="formulario">
+                        <span class="p-inputgroup-addon">
                             <label>Dirección:</label>
-                            <input type="text" class="form-control" [(ngModel)]="direccion.direccion" [ngModelOptions]="{standalone:true}" required>
+                        </span>
+                        &nbsp;
+                        <div class="row justify-content-start">
+                            <div class="col-8">
+                                <p-button pRipple label="Agregar dirección" (click)="agregarDireccion()"></p-button>
+                            </div>
                         </div>
-                        <div class="form-group">
+                        <div class="row" *ngFor="let direccion of tempCliente.direccionesList">
+                            &nbsp;
+                            <div class="row-md-12">
+                                <div class="btn btn-danger" *ngIf="!direccion.id"
+                                    (click)="eliminarDireccion(direccion)">Eliminar Dirección</div>
+                            </div>
+                            <div class="row justify-content-md-center">
+                                <div class="col-10">
+                                    <div class="form-group">
+                                        <label>Dirección:</label>
+                                        <input type="text" class="form-control" [(ngModel)]="direccion.direccion"
+                                            [ngModelOptions]="{standalone:true}" required>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        &nbsp;
+                        <span class="p-inputgroup-addon">
                             <label>Estado:</label>
-                            <input type="checkbox" class="form-control" [(ngModel)]="direccion.estado" [ngModelOptions]="{standalone:true}" required>
-                        </div>
-                    </div>
-                    &nbsp;
-                    <span class="p-inputgroup-addon">
-                        <label>Estado:</label>
-                    </span>
-                    &nbsp;  
-                    <div class="row justify-content-md-center">
-                        <div class="col-md-auto">
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" role="switch" id="activoSwitch"
-                                    (click)="actualizarEstado($event)" checked>
-                                <label class="form-check-label" for="activoSwitch">Activo/Inactivo</label>
+                        </span>
+                        <div class="row justify-content-md-center">
+                            <div class="col-md-auto">
+                                <label for="estado">Estado:</label>
+                                &nbsp;
+                                <p-dropdown [options]="opciones" [(ngModel)]="estado"
+                                    (ngModelChange)="cambiarOpciones()" optionLabel="estado"
+                                    [ngModelOptions]="{ standalone: true }"></p-dropdown>
                             </div>
                         </div>
-                    </div>
-                    &nbsp;
-                    <div class="row justify-content-md-around">
-                        <div class="col-md-auto">
-                            <div class="card flex justify-content-center">
-                                <button pButton pRipple label="Guardar" (click)="guardar()"
-                                    class="p-button-primary"></button>
+                        &nbsp;
+                        <div class="row justify-content-md-around">
+                            <div class="col-6">
+                                <input type="submit" class="btn btn-success" value="Guardar">
                             </div>
                         </div>
-                    </div>
+                    </form>
                 </div>
             </div>
-        </div>
-    </div>
-</div>

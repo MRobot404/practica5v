@@ -24,11 +24,16 @@ export class MantenerClienteComponent implements OnInit {
   totalPages: any;
   tempPage = 0;
   tempCliente: any = { direccionesList: [] };
+  estado: any;
 
 
   constructor(private messageService: MessageService, private clientesService: ClientesService) { }
 
   ngOnInit() {
+    this.opciones = [
+      { estado: 'I' },
+      { estado: 'A' },
+    ];
   }
 
   evaluarValorInput(event: any) {
@@ -70,18 +75,11 @@ export class MantenerClienteComponent implements OnInit {
   editarCliente(cliente: any) {
     this.tabla = false;
     this.editar = true;
-    this.tempCliente=cliente;
-    console.log(this.tempCliente)
+    this.tempCliente = cliente;
+    this.estado = '';
+    this.cambiarOpciones()
   }
 
-  activo: boolean = true;
-  actualizarEstado(event: any) {
-    this.activo = event.target.checked;
-  }
-
-  guardar() {
-
-  }
 
   agregarDireccion() {
     this.tempCliente.direccionesList.push({});
@@ -91,4 +89,45 @@ export class MantenerClienteComponent implements OnInit {
     this.tempCliente.direccionesList.splice(this.tempCliente.direccionesList.indexOf(direccion), 1);
   }
 
+  activo: boolean = true;
+  actualizarEstado(event: any) {
+    this.activo = event.target.checked;
+  }
+
+  cambiarOpciones() {
+    if (this.tempCliente.estado === 'A') {
+      this.opciones = [
+        { estado: '' },
+        { estado: 'A' },
+        { estado: 'I' },
+      ];
+    } else if (this.tempCliente.estado === 'I') {
+      this.opciones = [
+        { estado: '' },
+        { estado: 'I' },
+        { estado: 'A' },
+      ];
+    }
+  }
+
+  guardar() {
+    console.log(this.tempCliente)
+    if (this.estado.estado != '') {
+      this.tempCliente.estado = this.estado.estado;
+    }
+    this.clientesService.guardarCliente(this.tempCliente).subscribe(
+      (response: any) => {
+        setTimeout(() => {
+          this.showSuccessClientes()
+          this.tempCliente = [];
+          this.estado = '';
+          this.editar = false;
+        }, 500);
+
+      }
+    )
+  }
+  showSuccessClientes() {
+    this.messageService.add({ severity: 'success', summary: 'Actualizado', detail: 'Su cliente fue actualizado' });
+  }
 }

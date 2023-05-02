@@ -9,7 +9,7 @@ import { ClientesService } from '../Services/clientes.service';
   providers: [MessageService]
 })
 export class CrearClienteComponent implements OnInit {
-  cliente: any = {};
+  cliente: any = { direccionesList: [] };
   estado: any;
   opciones: any = [];
 
@@ -38,8 +38,18 @@ export class CrearClienteComponent implements OnInit {
     }
   }
 
+  agregarDireccion() {
+    this.cliente.direccionesList.push({});
+  }
+
+  eliminarDireccion(direccion: any) {
+    this.cliente.direccionesList.splice(this.cliente.direccionesList.indexOf(direccion), 1);
+  }
+
   showSuccessClientes() {
     this.messageService.add({ severity: 'success', summary: 'Guardado', detail: 'Su cliente fue guardado' });
   }
+
+
 
 }
