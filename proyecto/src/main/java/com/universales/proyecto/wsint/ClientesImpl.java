@@ -62,5 +62,7 @@ public class ClientesImpl implements ClientesInt {
 		String valorConPorcentaje =  valorMayuscula.replace(" ", "%");
 		return clientesRepository.findByNombreOrNitOrDpi(valorConPorcentaje, pageable);
 	}
+	
+	
 
 }

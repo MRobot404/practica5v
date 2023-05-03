@@ -16,6 +16,7 @@ export class MantenerClienteComponent implements OnInit {
   listClientes: any;
   clientes: any;
   opciones: any = [];
+  opcionesd: any = [];
   txtSearch: any = HTMLInputElement;
   valorDelInput?: string = '';
   cargar: boolean = false;
@@ -26,11 +27,14 @@ export class MantenerClienteComponent implements OnInit {
   tempCliente: any = { direccionesList: [] };
   estado: any;
 
-
   constructor(private messageService: MessageService, private clientesService: ClientesService) { }
 
   ngOnInit() {
     this.opciones = [
+      { estado: 'I' },
+      { estado: 'A' },
+    ];
+    this.opcionesd = [
       { estado: 'I' },
       { estado: 'A' },
     ];
@@ -114,6 +118,8 @@ export class MantenerClienteComponent implements OnInit {
     console.log(this.tempCliente)
     if (this.estado.estado != '') {
       this.tempCliente.estado = this.estado.estado;
+    }if(this.tempCliente.direccionesList.estado != ''){
+      console.log("prueba");
     }
     this.clientesService.guardarCliente(this.tempCliente).subscribe(
       (response: any) => {

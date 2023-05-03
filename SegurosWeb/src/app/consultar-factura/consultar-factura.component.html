@@ -1,7 +1,12 @@
-<div class="progress" *ngIf="cargar">
-    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="100"
-        style="width: 100%"></div>
+<div class="container">
+<br>
+<div style="display: flex; align-items: center;">
+    <input type="text" class="form-control" #inputElement (input)="evaluarValorInput($event)" required />
+    &nbsp; &nbsp;
+    <p-button label="Buscar" styleClass="p-button-primary" (click)="buscar()" class="text-center"
+        [disabled]="disabled" icon="pi pi-search"></p-button>
 </div>
+<br>
 <div class="card">
     <p-table [value]="facturas" [paginator]="true" [rows]="sizePage" [lazy]="true" [totalRecords]="totalElements"
         [showCurrentPageReport]="true" (onPage)=onPageChange($event)
@@ -30,4 +35,5 @@
             </tr>
         </ng-template>
     </p-table>
+</div>
 </div>

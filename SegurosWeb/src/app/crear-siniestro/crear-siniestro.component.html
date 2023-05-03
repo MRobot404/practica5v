@@ -1,0 +1,72 @@
+<p-toast></p-toast>
+<div class="container">
+    <br>
+    <div *ngIf=buscar1 style="display: flex; align-items: center;">
+        <input type="text" class="form-control" #inputElement (input)="evaluarValorInput($event)" required />
+        &nbsp; &nbsp;
+        <p-button label="Buscar" styleClass="p-button-primary" (click)="buscar()" class="text-center"
+            [disabled]="disabled" icon="pi pi-search"></p-button>
+    </div>
+    <br>
+    <div class="container text-center">
+        <div *ngIf="tabla" class="card w-50">
+            <p-table [value]="seguros" [paginator]="true" [rows]="sizePage" [lazy]="true" [totalRecords]="totalElements"
+                [showCurrentPageReport]="true" (onPage)=onPageChange($event)
+                currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                [rowsPerPageOptions]="[1,2,3,5, 10, 25, 50]" >
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th>Tipo</th>
+                        <th></th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-seguro>
+                    <tr>
+                        <td>{{seguro.tipo}}</td>
+                        <td>
+                            <p-button icon="pi pi-plus" styleClass="p-button-raised p-button-text p-button-secondary"
+                                (click)="agregar(seguro)"></p-button>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+    </div>
+    <div class="container">
+    <div *ngIf=crear class="row">
+        <div class="col-md-6 offset-md-3">
+            <form (ngSubmit)="guardar()" id="formulario">
+                <div class="form-group">
+                    <label for="nombre">Certificado:</label>
+                    <select id="certificado" class="form-control text-center" [(ngModel)]="certificadoSeleccionado"
+                        [ngModelOptions]="{ standalone: true }" required>
+                        <option *ngFor="let certificado of seguros.certificadosList" [value]="certificado.id">
+                            {{certificado.id}}</option>
+                    </select>
+                </div>
+                &nbsp;
+                <div class="form-group">
+                    <label for="nombre">Fecha ocurrencia:</label>
+                    <input id="certificado" type="date" class="form-control" [(ngModel)]="siniestro.fechaOcurrencia"
+                        [ngModelOptions]="{ standalone: true }" required />
+                </div>
+                &nbsp;
+                <div class="form-group">
+                    <label for="nombre">Solución:</label>
+                    <input type="text" class="form-control" [(ngModel)]="siniestro.solucion"
+                        [ngModelOptions]="{ standalone: true }" required />
+                </div>
+                &nbsp;
+                <div class="form-group">
+                    <label for="estado">Estado:</label>
+                    &nbsp;
+                    <p-dropdown [options]="opciones" [(ngModel)]="estado" optionLabel="estado"
+                        [ngModelOptions]="{ standalone: true }"></p-dropdown>
+                </div>
+                <br>
+                <input id="guardar" type="submit" class="btn btn-success btn-square btn-size-sm" value="Guardar">
+            </form>
+        </div>
+    </div>
+</div>
+</div>

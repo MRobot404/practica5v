@@ -15,4 +15,6 @@ public interface ClientesRepository extends JpaRepository<Clientes, Serializable
 
 	@Query(value = "SELECT * FROM CLIENTES WHERE UPPER(NOMBRE||APELLIDO||NIT||DPI||APELLIDO||NOMBRE) LIKE %:valor%", nativeQuery = true)
 	Page<Clientes> findByNombreOrNitOrDpi(String valor, Pageable pageable);
+	
+	
 }

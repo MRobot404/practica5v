@@ -1,33 +1,39 @@
-<div class="progress" *ngIf="cargar">
-    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="100"
-        style="width: 100%"></div>
-</div>
-<div class="card">
-    <p-table [value]="siniestros" [paginator]="true" [rows]="sizePage" [lazy]="true" [totalRecords]="totalElements"
-        [showCurrentPageReport]="true" (onPage)=onPageChange($event)
-        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-        [rowsPerPageOptions]="[1,2,3,5, 10, 25, 50]">
-        <ng-template pTemplate="header">
-            <tr>
-                <th>Fecha</th>
-                <th>Solución</th>
-                <th>Estado</th>
-                <th>Grabación usuario</th>
-                <th>Grabación fecha</th>
-                <th>Modificación usuario</th>
-                <th>Modificación fecha</th>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-siniestro>
-            <tr>
-                <td>{{siniestro.fechaOcurrencia| date}}</td>
-                <td>Q{{siniestro.solucion}}</td>
-                <td>{{siniestro.estado}}</td>
-                <td>{{siniestro.grabacionUsuario}}</td>
-                <td>{{siniestro.grabacionFecha |date:'dd/MM/yyyy HH:mm:ss'}}</td>
-                <td>{{siniestro.modificacionUsuario}}</td>
-                <td>{{siniestro.modificacionFecha |date:'dd/MM/yyyy HH:mm:ss'}}</td>
-            </tr>
-        </ng-template>
-    </p-table>
+<div class="container">
+    <br>
+    <div style="display:flex; align-items: center;">
+        <input type="text" class="form-control" #inputElement (input)="evaluarValorInput($event)" required />
+        &nbsp; &nbsp;
+        <p-button label="Buscar" styleClass="p-button-primary" (click)="buscar()" class="text-center"
+            [disabled]="disabled" icon="pi pi-search"></p-button>
+    </div>
+    <br>
+    <div class="card">
+        <p-table [value]="siniestros" [paginator]="true" [rows]="sizePage" [lazy]="true" [totalRecords]="totalElements"
+            [showCurrentPageReport]="true" (onPage)=onPageChange($event)
+            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+            [rowsPerPageOptions]="[1,2,3,5, 10, 25, 50]">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>Fecha</th>
+                    <th>Solución</th>
+                    <th>Estado</th>
+                    <th>Grabación usuario</th>
+                    <th>Grabación fecha</th>
+                    <th>Modificación usuario</th>
+                    <th>Modificación fecha</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-siniestro>
+                <tr>
+                    <td>{{siniestro.fechaOcurrencia| date}}</td>
+                    <td>{{siniestro.solucion}}</td>
+                    <td>{{siniestro.estado}}</td>
+                    <td>{{siniestro.grabacionUsuario}}</td>
+                    <td>{{siniestro.grabacionFecha |date:'dd/MM/yyyy HH:mm:ss'}}</td>
+                    <td>{{siniestro.modificacionUsuario}}</td>
+                    <td>{{siniestro.modificacionFecha |date:'dd/MM/yyyy HH:mm:ss'}}</td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
 </div>

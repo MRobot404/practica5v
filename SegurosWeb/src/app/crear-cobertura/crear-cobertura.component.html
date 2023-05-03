@@ -10,19 +10,22 @@
         </div>
         <div class="form-group">
           <label for="apellido">Costo:</label>
-          <input type="number" maxlength="12" class="form-control" [(ngModel)]="cobertura.costo"
-            [ngModelOptions]="{ standalone: true }" required />
+          <input type="number" class="form-control" [(ngModel)]="cobertura.costo"
+            [ngModelOptions]="{ standalone: true }" required min="0" max="9999999" pattern="\d{1,7}" />
+
         </div>
         <div class="form-group">
           <label for="nit">Suma Asegurada:</label>
-          <input type="number" maxlength="12" class="form-control" [(ngModel)]="cobertura.sumaAsegurada"
-          [ngModelOptions]="{ standalone: true }" required />
+          <input type="number" class="form-control" [(ngModel)]="cobertura.sumaAsegurada"
+            [ngModelOptions]="{ standalone: true }" required min="0" max="9999999" pattern="\d{1,7}" />
+
         </div>
         &nbsp;
         <div class="form-group">
           <label for="estado">Estado:</label>
           &nbsp;
-          <p-dropdown [options]="opciones" [(ngModel)]="estado" optionLabel="estado" [ngModelOptions]="{ standalone: true }"></p-dropdown>
+          <p-dropdown [options]="opciones" [(ngModel)]="estado" optionLabel="estado"
+            [ngModelOptions]="{ standalone: true }"></p-dropdown>
         </div>
         <br>
         <input type="submit" class="btn btn-success" value="Guardar">

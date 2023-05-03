@@ -32,9 +32,9 @@ public interface FacturasInt {
 	@GetMapping("/paginar")
 	Page<Facturas>getFacturasPaginado(int page, int size);
 	
-	@GetMapping("/mantenimiento/{valor}/{page}/{size}")
-	public Page<Facturas>buscarPorCampos(@PathVariable("valor") String valor,
-		    @PathVariable("page") int page,
-		    @PathVariable("size") int size);
+    @GetMapping("/mantenimiento/{valor}/{page}/{size}")
+    public Page<Facturas>buscarPorCampos(@PathVariable("valor") String valor,
+            @PathVariable("page") int page,
+            @PathVariable("size") int size);
 
 }

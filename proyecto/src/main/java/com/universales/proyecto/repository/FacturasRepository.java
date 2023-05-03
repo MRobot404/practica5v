@@ -9,14 +9,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import com.universales.proyecto.entity.Facturas;
 
-
-
 @Repository("facturasRepository")
-public interface FacturasRepository extends JpaRepository<Facturas,Serializable>{
+public interface FacturasRepository extends JpaRepository<Facturas, Serializable> {
 
-	Page<Facturas>findAll(Pageable pageable);
-	
-	@Query(value = "SELECT f.* FROM facturas INNER JOIN seguros  ON facturas.seguro_id = seguros.id INNER JOIN clientes  ON facturas.cliente_id = clientes.id WHERE ( clientes.nit||seguros.id ) like %?1%", nativeQuery=true)
+	Page<Facturas> findAll(Pageable pageable);
+
+	@Query(value="SELECT *  FROM SEGUNIS.FACTURAS INNER JOIN SEGUNIS.SEGUROS ON SEGUNIS.FACTURAS.SEGURO_ID = SEGUNIS.SEGUROS.ID INNER JOIN SEGUNIS.CLIENTES ON SEGUNIS.FACTURAS.CLIENTE_ID = SEGUNIS.CLIENTES.ID WHERE (SEGUNIS.CLIENTES.NIT || SEGUNIS.SEGUROS.ID) LIKE %:valor%", nativeQuery = true)
 	Page<Facturas> findByNitOrPoliza(String valor, Pageable pageable);
-
 }

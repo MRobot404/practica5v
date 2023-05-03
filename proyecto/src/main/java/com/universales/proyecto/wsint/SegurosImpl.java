@@ -43,4 +43,11 @@ public class SegurosImpl implements SegurosInt{
 		return segurosRepository.findAll(pageable);
 	}
 
+	@Override
+	public Page<Seguros> buscarPorCampos(String valor, int page, int size) {
+	 Pageable pageable = PageRequest.of(page, size);
+		String valorMayuscula = valor.toUpperCase();
+		String valorConPorcentaje =  valorMayuscula.replace(" ", "%");
+		return segurosRepository.findById(valorConPorcentaje, pageable);
+	}
 }

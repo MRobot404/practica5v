@@ -16,12 +16,10 @@ export class CrearCoberturaComponent implements OnInit {
   ngOnInit() {
     this.opciones = [
       { estado: 'A' },
-      { estado: 'I' },
     ];
   }
 
   guardar() {
-
     let formulario: any = document.getElementById("formulario");
     let valido = formulario.reportValidity();
     this.cobertura.estado = this.estado.estado;

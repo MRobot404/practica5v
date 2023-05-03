@@ -26,6 +26,7 @@ import { CrearCoberturaComponent } from './crear-cobertura/crear-cobertura.compo
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { MantenerCoberturaComponent } from './mantener-cobertura/mantener-cobertura.component';
+import { CrearSiniestroComponent } from './crear-siniestro/crear-siniestro.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -38,6 +39,7 @@ import { MantenerCoberturaComponent } from './mantener-cobertura/mantener-cobert
     ConsultarSiniestroComponent,
     CrearCoberturaComponent,
     MantenerCoberturaComponent,
+    CrearSiniestroComponent,
   ],
   imports: [
     BrowserModule,

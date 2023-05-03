@@ -16,8 +16,7 @@ export class CrearClienteComponent implements OnInit {
   constructor(private messageService: MessageService, private clientesService: ClientesService) { }
   ngOnInit() {
     this.opciones = [
-      { estado: 'A' },
-      { estado: 'I' },
+      { estado: 'A' }
     ];
   }
 

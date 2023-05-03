@@ -63,6 +63,7 @@ export class NavbarComponent implements OnInit {
               {
                 label: 'Crear',
                 icon: 'pi pi-fw pi-plus',
+                routerLink:["/crearSiniestro"]
               },
               {
                 label: 'Consultar',

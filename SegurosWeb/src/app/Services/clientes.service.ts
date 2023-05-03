@@ -10,13 +10,11 @@ export class ClientesService {
   constructor(private http: HttpClient) { }
 
   guardarCliente(cliente: any) {
-
     return this.http
       .post<any>(
         this.URL + 'guardar',
         cliente
       )
-
   }
 
   mantenimientoCliente(parametro: any, page: number, size: number): Observable<any> {

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { CoberturasService } from '../Services/coberturas.service';
-import { computeStyles } from '@popperjs/core';
 
 
 @Component({

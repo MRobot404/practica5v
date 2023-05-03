@@ -8,6 +8,9 @@ import { FacturasService } from '../Services/facturas.service';
 })
 export class ConsultarFacturaComponent implements OnInit {
   listFacturas: any = [];
+  valorDelInput?: string = '';
+  value: string = '';
+  disabled: boolean = true;
   facturas: any = [];
   cargar: boolean = false;
   sizePage = 10;
@@ -19,6 +22,22 @@ export class ConsultarFacturaComponent implements OnInit {
   }
 
   constructor(private facturasService: FacturasService) { }
+
+  evaluarValorInput(event: any) {
+    if (event.target instanceof HTMLInputElement) {
+      this.valorDelInput = event.target.value;
+      if (this.valorDelInput?.trim() !== '') {
+        this.disabled = false;
+      } else {
+        this.disabled = true;
+      }
+    }
+  }
+
+  buscar() {
+    this.actualizarPagina(0, this.sizePage);
+  }
+
 
   onPageChange(event: any) {
     let pagina:number = event.first/this.sizePage
