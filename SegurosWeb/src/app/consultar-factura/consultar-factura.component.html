@@ -7,7 +7,7 @@
         [disabled]="disabled" icon="pi pi-search"></p-button>
 </div>
 <br>
-<div class="card">
+<div *ngIf="tabla" class="card">
     <p-table [value]="facturas" [paginator]="true" [rows]="sizePage" [lazy]="true" [totalRecords]="totalElements"
         [showCurrentPageReport]="true" (onPage)=onPageChange($event)
         currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"

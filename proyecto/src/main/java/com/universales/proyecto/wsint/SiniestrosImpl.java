@@ -41,5 +41,12 @@ public class SiniestrosImpl implements SiniestrosInt {
 		Pageable pageable=PageRequest.of(page, size);
 		return siniestrosRepository.findAll(pageable);
 	}
+	
+	@Override
+    public Page<Siniestros> buscarPorCampos(String valor, int page, int size) {
+     Pageable pageable = PageRequest.of(page, size);
+        String valorConPorcentaje = "%" + valor.replace(" ", "%") + "%";
+        return siniestrosRepository.findByPoliza(valorConPorcentaje, pageable);
+    }
 
 }

@@ -16,6 +16,8 @@ export class ConsultarSiniestroComponent implements OnInit {
   totalElements: any;
   totalPages: any;
   tempPage = 0;
+  tabla: boolean = false;
+  tempSiniestro:any=[];
   ngOnInit(): void {
     this.actualizarPagina(this.tempPage, this.sizePage);
   }
@@ -26,13 +28,20 @@ export class ConsultarSiniestroComponent implements OnInit {
       this.valorDelInput = event.target.value;
       if (this.valorDelInput?.trim() !== '') {
         this.disabled = false;
+        this.tabla = false;
       } else {
         this.disabled = true;
       }
     }
   }
 
+  crear(siniestro: any) {
+    this.tabla = false;
+    this.tempSiniestro = siniestro;
+  }
+
   buscar() {
+    this.tabla = true;
     this.actualizarPagina(0, this.sizePage);
   }
 
@@ -46,7 +55,7 @@ export class ConsultarSiniestroComponent implements OnInit {
 
 
   actualizarPagina(page: number, size: number) {
-    this.siniestrosService.verTodosPaginado(page, size).subscribe(
+    this.siniestrosService.mantenimientoSiniestro(this.valorDelInput,page, size).subscribe(
       res => {
         this.listSiniestros = res;
         this.siniestros = this.listSiniestros.content;

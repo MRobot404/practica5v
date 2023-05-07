@@ -53,7 +53,6 @@ public class FacturasImpl implements FacturasInt {
     public Page<Facturas> buscarPorCampos(String valor, int page, int size) {
      Pageable pageable = PageRequest.of(page, size);
         String valorConPorcentaje = "%" + valor.replace(" ", "%") + "%";
-        logger.error(valorConPorcentaje);
         return facturasRepository.findByNitOrPoliza(valorConPorcentaje, pageable);
     }
 

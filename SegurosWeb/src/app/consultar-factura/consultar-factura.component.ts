@@ -17,6 +17,7 @@ export class ConsultarFacturaComponent implements OnInit {
   totalElements: any;
   totalPages: any;
   tempPage = 0;
+  tabla: boolean = false;
   ngOnInit(): void {
     this.actualizarPagina(this.tempPage, this.sizePage);
   }
@@ -28,6 +29,7 @@ export class ConsultarFacturaComponent implements OnInit {
       this.valorDelInput = event.target.value;
       if (this.valorDelInput?.trim() !== '') {
         this.disabled = false;
+        this.tabla = false;
       } else {
         this.disabled = true;
       }
@@ -35,6 +37,7 @@ export class ConsultarFacturaComponent implements OnInit {
   }
 
   buscar() {
+    this.tabla = true;
     this.actualizarPagina(0, this.sizePage);
   }
 
@@ -48,7 +51,7 @@ export class ConsultarFacturaComponent implements OnInit {
   }
 
   actualizarPagina(page: number, size: number) {
-    this.facturasService.verTodosPaginado(page, size).subscribe(
+    this.facturasService.mantenimientoFacturas(this.valorDelInput,page, size).subscribe(
       res => {
         this.listFacturas = res;
         this.facturas = this.listFacturas.content;
