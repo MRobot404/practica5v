@@ -51,11 +51,13 @@ export class NavbarComponent implements OnInit {
         items: [
           {
             label: 'Emisión',
-            icon: 'pi pi-fw pi-send'
+            icon: 'pi pi-fw pi-send',
+            routerLink: ["/emitirPoliza"]
           },
           {
             label: 'Consultar',
-            icon: 'pi pi-fw pi-eye'
+            icon: 'pi pi-fw pi-eye',
+            routerLink: ["/consultarPoliza"]
           },
           {
             label: 'Siniestros',
@@ -63,7 +65,7 @@ export class NavbarComponent implements OnInit {
               {
                 label: 'Crear',
                 icon: 'pi pi-fw pi-plus',
-                routerLink:["/crearSiniestro"]
+                routerLink: ["/crearSiniestro"]
               },
               {
                 label: 'Consultar',

@@ -19,7 +19,6 @@ export class ConsultarFacturaComponent implements OnInit {
   tempPage = 0;
   tabla: boolean = false;
   ngOnInit(): void {
-    this.actualizarPagina(this.tempPage, this.sizePage);
   }
 
   constructor(private facturasService: FacturasService) { }
@@ -43,15 +42,15 @@ export class ConsultarFacturaComponent implements OnInit {
 
 
   onPageChange(event: any) {
-    let pagina:number = event.first/this.sizePage
+    let pagina: number = event.first / this.sizePage
     this.actualizarPagina(pagina, this.sizePage);
-    let sizeTmp:number = event.rows
-    this.sizePage=sizeTmp;
+    let sizeTmp: number = event.rows
+    this.sizePage = sizeTmp;
     this.actualizarPagina(pagina, this.sizePage);
   }
 
   actualizarPagina(page: number, size: number) {
-    this.facturasService.mantenimientoFacturas(this.valorDelInput,page, size).subscribe(
+    this.facturasService.mantenimientoFacturas(this.valorDelInput, page, size).subscribe(
       res => {
         this.listFacturas = res;
         this.facturas = this.listFacturas.content;

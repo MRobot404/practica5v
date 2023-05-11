@@ -22,4 +22,9 @@ export class CoberturasService {
     return this.http
       .get<any>(this.URL + 'mantenimiento/' + parametro + '/' + page + '/' + size);
   }
+
+  verTodoPaginado(page:number, size:number): Observable<any>{
+    return this.http
+    .get<any>(this.URL + 'paginar?page=' + page + "&size=" + size);
+  }
 }

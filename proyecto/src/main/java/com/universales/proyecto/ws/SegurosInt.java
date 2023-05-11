@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+
 import org.springframework.web.bind.annotation.RestController;
 
 import com.universales.proyecto.dto.SegurosDTO;
@@ -34,5 +35,7 @@ public interface SegurosInt {
 	public Page<Seguros> buscarPorCampos(@PathVariable("valor") String valor,
 		    @PathVariable("page") int page,
 		    @PathVariable("size") int size);
+	
+
 
 }

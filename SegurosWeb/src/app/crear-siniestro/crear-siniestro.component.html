@@ -1,15 +1,18 @@
 <p-toast></p-toast>
 <div class="container">
+    <h1><i class="pi pi-folder-open" style="font-size: 2rem"></i>  Crear siniestro</h1>
+    <hr>
     <br>
     <div *ngIf=buscar1 style="display: flex; align-items: center;">
         <input type="text" class="form-control" #inputElement (input)="evaluarValorInput($event)" required />
         &nbsp; &nbsp;
         <p-button label="Buscar" styleClass="p-button-primary" (click)="buscar()" class="text-center"
-            [disabled]="disabled" icon="pi pi-search"></p-button>
+        [disabled]="disabled" icon="pi pi-search"></p-button>
     </div>
     <br>
+    <p-dialog  [(visible)]="visible" [style]="{width: '50vw'}" [maximizable]="true">
     <div class="container text-center">
-        <div *ngIf="tabla" class="card w-50">
+        <div *ngIf="tabla" class="card wd-50">
             <p-table [value]="seguros" [paginator]="true" [rows]="sizePage" [lazy]="true" [totalRecords]="totalElements"
                 [showCurrentPageReport]="true" (onPage)=onPageChange($event)
                 currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
@@ -23,6 +26,8 @@
                 <ng-template pTemplate="body" let-seguro>
                     <tr>
                         <td>{{seguro.tipo}}</td>
+                        <td></td>
+                        <td></td>
                         <td>
                             <p-button icon="pi pi-plus" styleClass="p-button-raised p-button-text p-button-secondary"
                                 (click)="agregar(seguro)"></p-button>
@@ -32,6 +37,7 @@
             </p-table>
         </div>
     </div>
+    </p-dialog>
     <div class="container">
     <div *ngIf=crear class="row">
         <div class="col-md-6 offset-md-3">

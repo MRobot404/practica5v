@@ -1,4 +1,6 @@
 <div class="container">
+    <h1><i class="pi pi-eye" style="font-size: 2rem"></i>  Consulta de factura</h1>
+    <hr>
 <br>
 <div style="display: flex; align-items: center;">
     <input type="text" class="form-control" #inputElement (input)="evaluarValorInput($event)" required />
@@ -26,7 +28,7 @@
         <ng-template pTemplate="body" let-factura>
             <tr>
                 <td>{{factura.fecha | date}}</td>
-                <td>Q{{factura.monto}}</td>
+                <td>{{factura.monto |currency:'Q' }}</td>
                 <td>{{factura.estado}}</td>
                 <td>{{factura.grabacionUsuario}}</td>
                 <td>{{factura.grabacionFecha |date:'dd/MM/yyyy HH:mm:ss'}}</td>

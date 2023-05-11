@@ -1,0 +1,57 @@
+<p-toast></p-toast>
+<div class="container">
+    <h1><i class="pi pi-eye" style="font-size: 2rem"></i>  Consulta de pólizas</h1>
+    <hr>
+    <br>
+    <div class="container">
+        <form id="miFormulario">
+            <div class="row row-cols-2 row-cols-lg-4 g-2 g-lg-3">
+                <div class="col">
+                    <div class="p-3">
+                        <label class="text-center">Número Poliza:</label>
+                        <input type="number" placeholder="Número poliza" class="form-control" />
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="p-3">
+                        <label class="text-center">Fecha de inicio:</label>
+                        <input type="date" placeholder="Fecha de inicio" class="form-control" />
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="p-3">
+                        <label class="text-center">Fecha de fin:</label>
+                        <input type="date" placeholder="Fecha fin" class="form-control" />
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="p-3">
+                        <label class="text-center">Nombre del contratante:</label>
+                        <input type="text" placeholder="Nombre del contratante" class="form-control" />
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="p-3">
+                        <label class="text-center">Nit del contratante:</label>
+                        <input type="text" placeholder="Nit del contratante" class="form-control" />
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="p-3">
+                        <label class="text-center">DPI del contratante:</label>
+                        <input type="number" placeholder="DPI del contratante" class="form-control" />
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="p-3">
+                        <button  class="btn btn-danger btn-lg bi bi-eraser " (click)="cancelar()">
+                            Cancelar</button>
+                        &nbsp; &nbsp;
+                        <p-button label="Buscar" styleClass="p-button-primary" (click)="buscar()" class="text-center"
+                            icon="pi pi-search"></p-button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

@@ -50,4 +50,6 @@ public class SegurosImpl implements SegurosInt{
 		String valorConPorcentaje =  valorMayuscula.replace(" ", "%");
 		return segurosRepository.findById(valorConPorcentaje, pageable);
 	}
+
+	
 }

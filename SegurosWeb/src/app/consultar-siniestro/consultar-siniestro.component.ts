@@ -1,12 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { SiniestrosService } from '../Services/siniestros.service';
+import { MessageService } from 'primeng/api';
 @Component({
   selector: 'app-consultar-siniestro',
   templateUrl: './consultar-siniestro.component.html',
-  styleUrls: ['./consultar-siniestro.component.css']
+  styleUrls: ['./consultar-siniestro.component.css'],
+  providers: [MessageService]
 })
 export class ConsultarSiniestroComponent implements OnInit {
   listSiniestros: any = [];
+  editar: boolean = false;
   valorDelInput?: string = '';
   value: string = '';
   disabled: boolean = true;
@@ -19,10 +22,9 @@ export class ConsultarSiniestroComponent implements OnInit {
   tabla: boolean = false;
   tempSiniestro:any=[];
   ngOnInit(): void {
-    this.actualizarPagina(this.tempPage, this.sizePage);
   }
 
-  constructor(private siniestrosService: SiniestrosService) { }
+  constructor(private siniestrosService: SiniestrosService, private messageService: MessageService) { }
   evaluarValorInput(event: any) {
     if (event.target instanceof HTMLInputElement) {
       this.valorDelInput = event.target.value;
@@ -38,6 +40,7 @@ export class ConsultarSiniestroComponent implements OnInit {
   crear(siniestro: any) {
     this.tabla = false;
     this.tempSiniestro = siniestro;
+    this.editar=true;
   }
 
   buscar() {
@@ -65,4 +68,19 @@ export class ConsultarSiniestroComponent implements OnInit {
     );
   }
 
+  guardar(){
+  this.siniestrosService.guardarSiniestro(this.tempSiniestro).subscribe(
+    (response: any) => {
+      setTimeout(() => {
+        this.showSuccessSiniestro()
+        this.tempSiniestro = [];
+        this.editar=false;
+      }, 500);
+    }
+  )
+  }
+
+  showSuccessSiniestro() {
+    this.messageService.add({ severity: 'success', summary: 'Actualizado', detail: 'Su siniestro fue actualizado' });
+  }
 }

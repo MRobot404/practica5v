@@ -8,6 +8,8 @@ import { ConsultarSiniestroComponent } from './consultar-siniestro/consultar-sin
 import { CrearCoberturaComponent } from './crear-cobertura/crear-cobertura.component';
 import { MantenerCoberturaComponent } from './mantener-cobertura/mantener-cobertura.component';
 import { CrearSiniestroComponent } from './crear-siniestro/crear-siniestro.component';
+import { ConsultarPolizasComponent } from './consultar-polizas/consultar-polizas.component';
+import { EmitirPolizaComponent } from './emitir-poliza/emitir-poliza.component';
 
 const routes: Routes = [
   {path:'', component:HomeComponent},
@@ -17,7 +19,9 @@ const routes: Routes = [
   {path:'consultarSiniestro',component:ConsultarSiniestroComponent},
   {path:'crearCobertura', component:CrearCoberturaComponent},
   {path:'mantenerCobertura', component:MantenerCoberturaComponent},
-  {path:'crearSiniestro', component:CrearSiniestroComponent}
+  {path:'crearSiniestro', component:CrearSiniestroComponent},
+  {path:'consultarPoliza', component:ConsultarPolizasComponent},
+  {path:'emitirPoliza', component:EmitirPolizaComponent}
 ];
 
 @NgModule({

@@ -48,7 +48,4 @@ export class CrearClienteComponent implements OnInit {
   showSuccessClientes() {
     this.messageService.add({ severity: 'success', summary: 'Guardado', detail: 'Su cliente fue guardado' });
   }
-
-
-
 }

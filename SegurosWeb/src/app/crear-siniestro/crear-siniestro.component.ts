@@ -30,6 +30,7 @@ export class CrearSiniestroComponent implements OnInit {
   siniestro: any = {};
   crear: boolean = false;
   certificadoSeleccionado: any;
+  visible: boolean= false;
 
   constructor(private messageService: MessageService, private siniestroService: SiniestrosService, private seguroService: SegurosService) { }
 
@@ -40,6 +41,10 @@ export class CrearSiniestroComponent implements OnInit {
     ];
   }
 
+  showDialog() {
+    this.visible = true;
+}
+
   evaluarValorInput(event: any) {
     if (event.target instanceof HTMLInputElement) {
       this.valorDelInput = event.target.value;
@@ -47,6 +52,7 @@ export class CrearSiniestroComponent implements OnInit {
         this.disabled = false;
         this.editar = false;
         this.tabla = false;
+        this.visible=false;
       } else {
         this.disabled = true;
       }
@@ -57,6 +63,7 @@ export class CrearSiniestroComponent implements OnInit {
 
   buscar() {
     this.tabla = true;
+    this.showDialog()
     this.editar = false;
     this.actualizarPagina(0, this.sizePage);
   }
@@ -84,36 +91,28 @@ export class CrearSiniestroComponent implements OnInit {
     this.buscar1 = false;
     this.tabla = false;
     this.crear = true;
+    this.visible=false;
   }
-
-
-
-
 
   guardar() {
-    this.siniestro.estado=this.estado.estado;
-    this.siniestro.certificadoId=this.certificadoSeleccionado;
+    this.siniestro.estado = this.estado.estado;
+    this.siniestro.certificadoId = this.certificadoSeleccionado;
     console.log(this.siniestro)
-      this.siniestroService.guardarSiniestro(this.siniestro).subscribe(
-        (response: any) => {
-          setTimeout(() => {
-            this.showSuccessSiniestros()
-            this.seguros = [];
-            this.siniestro=[];
-            this.estado = '';
-            this.crear=false;
-          }, 500);
-        }
-      );
-     
-  }
+    this.siniestroService.guardarSiniestro(this.siniestro).subscribe(
+      (response: any) => {
+        setTimeout(() => {
+          this.showSuccessSiniestros()
+          this.seguros = [];
+          this.siniestro = [];
+          this.estado = '';
+          this.crear = false;
+        }, 500);
+      }
+    );
 
+  }
   showSuccessSiniestros() {
     this.messageService.add({ severity: 'success', summary: 'Creado', detail: 'Su siniestro fue creado' });
   }
-
-
-
-
 
 }

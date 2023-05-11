@@ -27,6 +27,9 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { MantenerCoberturaComponent } from './mantener-cobertura/mantener-cobertura.component';
 import { CrearSiniestroComponent } from './crear-siniestro/crear-siniestro.component';
+import { ConsultarPolizasComponent } from './consultar-polizas/consultar-polizas.component';
+import { EmitirPolizaComponent } from './emitir-poliza/emitir-poliza.component';
+import { DialogModule } from 'primeng/dialog';
 @NgModule({
   declarations: [
     AppComponent,
@@ -40,6 +43,8 @@ import { CrearSiniestroComponent } from './crear-siniestro/crear-siniestro.compo
     CrearCoberturaComponent,
     MantenerCoberturaComponent,
     CrearSiniestroComponent,
+    ConsultarPolizasComponent,
+    EmitirPolizaComponent,
   ],
   imports: [
     BrowserModule,
@@ -58,7 +63,8 @@ import { CrearSiniestroComponent } from './crear-siniestro/crear-siniestro.compo
     ToastModule,
     PasswordModule,
     InputTextareaModule,
-    InputSwitchModule
+    InputSwitchModule,
+    DialogModule
   ],
   providers: [],
   bootstrap: [AppComponent]
