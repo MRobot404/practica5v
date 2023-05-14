@@ -36,7 +36,6 @@ export class CrearSiniestroComponent implements OnInit {
 
   ngOnInit() {
     this.opciones = [
-      { estado: 'I' },
       { estado: 'A' },
     ];
   }
@@ -95,9 +94,11 @@ export class CrearSiniestroComponent implements OnInit {
   }
 
   guardar() {
+    let formulario: any = document.getElementById("formulario");
+    let valido = formulario.reportValidity();
     this.siniestro.estado = this.estado.estado;
     this.siniestro.certificadoId = this.certificadoSeleccionado;
-    console.log(this.siniestro)
+    if (valido) {
     this.siniestroService.guardarSiniestro(this.siniestro).subscribe(
       (response: any) => {
         setTimeout(() => {
@@ -109,7 +110,7 @@ export class CrearSiniestroComponent implements OnInit {
         }, 500);
       }
     );
-
+    }
   }
   showSuccessSiniestros() {
     this.messageService.add({ severity: 'success', summary: 'Creado', detail: 'Su siniestro fue creado' });

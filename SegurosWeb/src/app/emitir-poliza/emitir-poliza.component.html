@@ -5,14 +5,45 @@
     &nbsp;&nbsp;
     <div class="container d-flex align-items-center justify-content-between">
         <h2 class="mr-auto"><i class="bi bi-life-preserver" style="font-size: 2rem"></i> Coberturas</h2>
-        <p-button icon="pi pi-check" (click)="showDialog()" title="Agregar Coberturas"></p-button>
+        <p-button icon="pi pi-plus" (click)="showDialog()" title="Agregar Coberturas"></p-button>
     </div>
-    <hr> 
-    <p-dialog  [(visible)]="visible" [style]="{width: '90vw', height: '75vw' }" [maximizable]="true">
+    <hr>
+    <p-dialog [(visible)]="visible" [style]="{width: '90vw', height: '75vw' }" [maximizable]="true"
+        [baseZIndex]="10000">
         <p-table [value]="coberturas" [paginator]="true" [rows]="sizePage" [lazy]="true" [totalRecords]="totalElements"
-        [showCurrentPageReport]="true" (onPage)=onPageChange($event)
+            [showCurrentPageReport]="true" (onPage)=onPageChange($event)
+            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [rowsPerPageOptions]="[50]">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>Descripción</th>
+                    <th>Costo</th>
+                    <th>Suma Asegurada</th>
+                    <th>Estado</th>
+                    <th></th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-cobertura>
+                <tr>
+                    <td>{{cobertura.descripcion}}</td>
+                    <td>{{cobertura.costo}}</td>
+                    <td>{{cobertura.sumaAsegurada}}</td>
+                    <td> <span *ngIf="cobertura.estado == 'A'">Activo</span>
+                        <span *ngIf="cobertura.estado == 'I'">Inactivo</span>
+                    </td>
+                    <td>
+                        <p-button icon="pi pi-plus" styleClass="p-button-raised p-button-text p-button-secondary"
+                            (click)="crear(cobertura)"></p-button>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </p-dialog>
+    &nbsp;&nbsp;
+    <br>
+    <p-table *ngIf="tabla2" [value]="tempListCobertura" [paginator]="true" [rows]="sizePage" [lazy]="true"
+        [totalRecords]="totalElements" [showCurrentPageReport]="true" (onPage)=onPageChange($event)
         currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-        [rowsPerPageOptions]="[1,2,3,5, 10, 25, 50]">
+        [rowsPerPageOptions]="[1,2,3,5,10,25,50]">
         <ng-template pTemplate="header">
             <tr>
                 <th>Descripción</th>
@@ -27,23 +58,49 @@
                 <td>{{cobertura.descripcion}}</td>
                 <td>{{cobertura.costo}}</td>
                 <td>{{cobertura.sumaAsegurada}}</td>
-                <td>{{cobertura.estado}}</td>
+                <td> <span *ngIf="cobertura.estado == 'A'">Activo</span>
+                    <span *ngIf="cobertura.estado == 'I'">Inactivo</span>
+                </td>
                 <td>
-                    <p-button icon="pi pi-plus" styleClass="p-button-raised p-button-text p-button-secondary"
-                        (click)="crear(cobertura)"></p-button>
+                    <p-button icon="pi pi-times" styleClass="p-button-raised p-button-text p-button-danger"
+                        (click)="eliminar(cobertura)"></p-button>
                 </td>
             </tr>
         </ng-template>
     </p-table>
-    </p-dialog>
-    &nbsp;&nbsp;
+    <br>
     <div class="container d-flex align-items-center justify-content-between">
         <h2 class="mr-auto"><i class="pi pi-file" style="font-size: 2rem"></i> Certificados</h2>
         <div class="d-flex">
-            <p-button icon="pi pi-check" title="Agregar certificado" ></p-button>
+            <p-button icon="pi pi-plus" title="Agregar certificado" (click)="agregarCertificado()"></p-button>
             &nbsp;&nbsp;
-            <p-button icon="pi pi-trash" title="Eliminar certificado" ></p-button>
         </div>
-    </div>      
-    <hr> 
+    </div>
+    <hr>
+    <div class="row" *ngFor="let certificado of certificados.certificadoslist">
+        &nbsp;
+        <form (ngSubmit)="guardarCertificado()" id="formulario">
+            <div class="row-md-12">
+                <div class="btn btn-danger" (click)="eliminarCertificado(certificado)">Eliminar certificado</div>
+            </div>
+            <div class="row justify-content-md-center">
+                <div class="col-4">
+                    <div class="form-group">
+                        <label>Código Contratante:</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" [(ngModel)]="certificado.codigoContratante"
+                                [ngModelOptions]="{standalone:true}" [disabled]="codigoContratante" required>
+                            &nbsp;
+                            <div class="input-group-append">
+                                <p-button icon="pi pi-plus" title="Agregar certificado"
+                                    (click)="agregarCertificado()"></p-button>
+                            </div>
+                        </div>
+                        &nbsp;
+                    </div>
+                </div>
+            </div>
+            &nbsp;
+        </form>
+    </div>
 </div>

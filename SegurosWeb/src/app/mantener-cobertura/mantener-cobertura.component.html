@@ -29,7 +29,10 @@
                     <td>{{cobertura.descripcion}}</td>
                     <td>{{cobertura.costo}}</td>
                     <td>{{cobertura.sumaAsegurada}}</td>
-                    <td>{{cobertura.estado}}</td>
+                    <td>
+                        <span *ngIf="cobertura.estado == 'A'">Activo</span>
+                        <span *ngIf="cobertura.estado == 'I'">Inactivo</span>
+                    </td>
                     <td>
                         <p-button icon="pi pi-pencil" styleClass="p-button-raised p-button-text p-button-secondary"
                             (click)="crear(cobertura)"></p-button>

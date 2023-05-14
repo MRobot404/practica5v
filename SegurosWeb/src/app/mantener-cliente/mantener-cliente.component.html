@@ -1,6 +1,6 @@
 <p-toast></p-toast>
 <div class="container">
-    <h1><i class="pi pi-wrench" style="font-size: 2rem"></i>  Mantener cliente</h1>
+    <h1><i class="pi pi-wrench" style="font-size: 2rem"></i> Mantener cliente</h1>
     <hr>
     <br>
     <div style="display: flex; align-items: center;">
@@ -31,7 +31,10 @@
                     <td>{{cliente.apellido}}</td>
                     <td>{{cliente.nit}}</td>
                     <td>{{cliente.dpi}}</td>
-                    <td>{{cliente.estado}}</td>
+                    <td>
+                        <span *ngIf="cliente.estado == 'A'">Activo</span>
+                        <span *ngIf="cliente.estado == 'I'">Inactivo</span>
+                    </td>
                     <td>
                         <p-button icon="pi pi-pencil" styleClass="p-button-raised p-button-text p-button-secondary"
                             (click)="editarCliente(cliente)"></p-button>
@@ -74,8 +77,10 @@
                                 <div class="col-md-auto">
                                     <label for="estado">Estado:</label>
                                     &nbsp;
-                                    <select class="form-select form-control-user2" [(ngModel)]="direccion.estado" name="tipoPeriodo">
-                                        <option [ngValue]="objeto.estado" *ngFor="let objeto of opcionesd">{{objeto.estado}}</option>
+                                    <select class="form-select form-control-user2" [(ngModel)]="direccion.estado"
+                                        name="tipoPeriodo">
+                                        <option [ngValue]="objeto.estado" *ngFor="let objeto of opcionesd">
+                                            {{objeto.estado}}</option>
                                     </select>
                                 </div>
                             </div>

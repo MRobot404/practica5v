@@ -31,7 +31,10 @@
                 <tr>
                     <td>{{siniestro.fechaOcurrencia| date}}</td>
                     <td>{{siniestro.solucion}}</td>
-                    <td>{{siniestro.estado}}</td>
+                    <td>
+                        <span *ngIf="siniestro.estado == 'A'">Activo</span>
+                        <span *ngIf="siniestro.estado == 'I'">Inactivo</span>
+                    </td>
                     <td>{{siniestro.grabacionUsuario}}</td>
                     <td>{{siniestro.grabacionFecha |date:'dd/MM/yyyy HH:mm:ss'}}</td>
                     <td>{{siniestro.modificacionUsuario}}</td>
