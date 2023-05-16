@@ -1,24 +1,38 @@
 <p-toast></p-toast>
+
 <div class="container">
-    <h1><i class="pi pi-send" style="font-size: 2rem"></i> Emisión de póliza</h1>
-    <hr>
+    <h1>
+        <i class="pi pi-send" style="font-size: 2rem"></i> Emisión de póliza
+    </h1>
+    <hr />
     &nbsp;&nbsp;
+    <br />
+
     <div class="container d-flex align-items-center justify-content-between">
-        <h2 class="mr-auto"><i class="bi bi-life-preserver" style="font-size: 2rem"></i> Coberturas</h2>
-        <p-button icon="pi pi-plus" (click)="showDialog()" title="Agregar Coberturas"></p-button>
+        <h2 class="mr-auto">
+            <i class="bi bi-life-preserver" style="font-size: 2rem"></i> Coberturas
+        </h2>
+
+        <div class="d-flex">
+            <p-button icon="pi pi-plus" (click)="showDialog()" title="Agregar Coberturas"></p-button>
+            &nbsp;&nbsp;
+            <p-button icon="pi pi-trash" title="Eliminar Coberturas" (click)="eliminarCoberturas()"
+                styleClass="p-button-danger"></p-button>
+        </div>
     </div>
-    <hr>
-    <p-dialog [(visible)]="visible" [style]="{width: '90vw', height: '75vw' }" [maximizable]="true"
+
+    <hr />
+
+    <p-dialog [(visible)]="visible" [style]="{width: '80vw', height: '60vw' }" [maximizable]="true"
         [baseZIndex]="10000">
         <p-table [value]="coberturas" [paginator]="true" [rows]="sizePage" [lazy]="true" [totalRecords]="totalElements"
-            [showCurrentPageReport]="true" (onPage)=onPageChange($event)
+            [showCurrentPageReport]="true" (onPage)="onPageChange($event)"
             currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [rowsPerPageOptions]="[50]">
             <ng-template pTemplate="header">
                 <tr>
                     <th>Descripción</th>
                     <th>Costo</th>
                     <th>Suma Asegurada</th>
-                    <th>Estado</th>
                     <th></th>
                 </tr>
             </ng-template>
@@ -27,21 +41,20 @@
                     <td>{{cobertura.descripcion}}</td>
                     <td>{{cobertura.costo}}</td>
                     <td>{{cobertura.sumaAsegurada}}</td>
-                    <td> <span *ngIf="cobertura.estado == 'A'">Activo</span>
-                        <span *ngIf="cobertura.estado == 'I'">Inactivo</span>
-                    </td>
                     <td>
-                        <p-button icon="pi pi-plus" styleClass="p-button-raised p-button-text p-button-secondary"
-                            (click)="crear(cobertura)"></p-button>
+                        <p-button icon="pi pi-plus" styleClass="p-button-raised p-button-text"
+                            (click)="crearCobertura(cobertura)"></p-button>
                     </td>
                 </tr>
             </ng-template>
         </p-table>
     </p-dialog>
+
     &nbsp;&nbsp;
-    <br>
+    <br />
+
     <p-table *ngIf="tabla2" [value]="tempListCobertura" [paginator]="true" [rows]="sizePage" [lazy]="true"
-        [totalRecords]="totalElements" [showCurrentPageReport]="true" (onPage)=onPageChange($event)
+        [totalRecords]="totalElements" [showCurrentPageReport]="true" (onPage)="onPageChange($event)"
         currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
         [rowsPerPageOptions]="[1,2,3,5,10,25,50]">
         <ng-template pTemplate="header">
@@ -58,7 +71,8 @@
                 <td>{{cobertura.descripcion}}</td>
                 <td>{{cobertura.costo}}</td>
                 <td>{{cobertura.sumaAsegurada}}</td>
-                <td> <span *ngIf="cobertura.estado == 'A'">Activo</span>
+                <td>
+                    <span *ngIf="cobertura.estado == 'A'">Activo</span>
                     <span *ngIf="cobertura.estado == 'I'">Inactivo</span>
                 </td>
                 <td>
@@ -68,39 +82,117 @@
             </tr>
         </ng-template>
     </p-table>
-    <br>
+    <br />
     <div class="container d-flex align-items-center justify-content-between">
-        <h2 class="mr-auto"><i class="pi pi-file" style="font-size: 2rem"></i> Certificados</h2>
+        <h2 class="mr-auto">
+            <i class="pi pi-file" style="font-size: 2rem"></i> Certificados
+        </h2>
         <div class="d-flex">
             <p-button icon="pi pi-plus" title="Agregar certificado" (click)="agregarCertificado()"></p-button>
             &nbsp;&nbsp;
+            <p-button icon="pi pi-trash" title="Eliminar Certificados" (click)="eliminarCertificados()"
+                styleClass="p-button-danger"></p-button>
         </div>
     </div>
-    <hr>
-    <div class="row" *ngFor="let certificado of certificados.certificadoslist">
-        &nbsp;
-        <form (ngSubmit)="guardarCertificado()" id="formulario">
+    <hr />
+    <form (ngSubmit)="guardarCertificado()" id="formulario">
+        <div class="row" *ngFor="let certificado of certificados.certificadoslist">
+            &nbsp;
             <div class="row-md-12">
                 <div class="btn btn-danger" (click)="eliminarCertificado(certificado)">Eliminar certificado</div>
             </div>
             <div class="row justify-content-md-center">
-                <div class="col-4">
+                <div class="col-md-4">
                     <div class="form-group">
                         <label>Código Contratante:</label>
                         <div class="input-group">
-                            <input type="text" class="form-control" [(ngModel)]="certificado.codigoContratante"
-                                [ngModelOptions]="{standalone:true}" [disabled]="codigoContratante" required>
+                            <input type="text" class="form-control" disabled="true" required
+                                [value]="[certificado.contratante.nombre, certificado.contratante.apellido].join (' ')">
                             &nbsp;
                             <div class="input-group-append">
-                                <p-button icon="pi pi-plus" title="Agregar certificado"
-                                    (click)="agregarCertificado()"></p-button>
+                                <p-button icon="pi pi-search-plus" title="Agregar codigo contratante"
+                                    (click)="agregarCodigoContratante(certificado)"></p-button>
                             </div>
                         </div>
-                        &nbsp;
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Código Asegurado:</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" [(ngModel)]="certificado.codigoAsegurado"
+                                [ngModelOptions]="{standalone:true}" [disabled]="codigoContratante" required
+                                [value]="certificado.codigoAsegurado">
+                            &nbsp;
+                            <div class="input-group-append">
+                                <p-button icon="pi pi-search-plus" title="Agregar codigo asegurado"></p-button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-            &nbsp;
-        </form>
-    </div>
+
+            <p-dialog [(visible)]="visibleCodigoContratante" [style]="{width: '80vw', height: '60vw' }"
+                [maximizable]="true" [baseZIndex]="10000">
+                <p-table [value]="clientes" [paginator]="true" [rows]="sizePage" [lazy]="true"
+                    [totalRecords]="totalElements" [showCurrentPageReport]="true"
+                    (onPage)="onPageChangeClientes($event)"
+                    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                    [rowsPerPageOptions]="[1,2,3,5,10,25,50]">
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Apellido</th>
+                            <th>Nit</th>
+                            <th>Dpi</th>
+                            <th></th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-cliente>
+                        <tr>
+                            <td>{{cliente.nombre}}</td>
+                            <td>{{cliente.apellido}}</td>
+                            <td>{{cliente.nit}}</td>
+                            <td>{{cliente.dpi}}</td>
+                            <td>
+                                <p-button icon="pi pi-plus" styleClass="p-button-raised p-button-text"
+                                    (click)="crearCodigoContratante(cliente)"></p-button>
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </p-dialog>
+            <br />
+
+            <hr />
+
+            &nbsp;&nbsp;
+        </div>
+
+        <div class="row justify-content-md-center">
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label>Prima total:</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control" [(ngModel)]="primaTotal"
+                            [ngModelOptions]="{standalone:true}" [disabled]="true" required>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label>Suma asegurada:</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control" [(ngModel)]="sumaAsegurada"
+                            [ngModelOptions]="{standalone:true}" [disabled]="true" required>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <br />
+        <br />
+    </form>
 </div>

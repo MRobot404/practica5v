@@ -21,7 +21,7 @@ public class ClientesImpl implements ClientesInt {
 
 	@Autowired
 	ClientesRepository clientesRepository;
-	
+
 	@Autowired
 	DireccionesRepository direccionesRepository;
 
@@ -35,19 +35,18 @@ public class ClientesImpl implements ClientesInt {
 
 	@Override
 	public Clientes guardar(ClientesDTO clientes) {
-	    Clientes cliente = modelMapper.map(clientes, Clientes.class);
-	    List<Direcciones> direcciones = cliente.getDireccionesList();
+		Clientes cliente = modelMapper.map(clientes, Clientes.class);
+		List<Direcciones> direcciones = cliente.getDireccionesList();
 		cliente.setDireccionesList(null);
 		clientesRepository.save(cliente);
-	    for(Direcciones direccion: direcciones) {
-	    	direccion.setClienteId(cliente.getId());
-	    	System.out.println(cliente.getId());
-	    }
-	    direccionesRepository.saveAll(direcciones);
-	    cliente.setDireccionesList(direcciones);
-	    return cliente;
+		for (Direcciones direccion : direcciones) {
+			direccion.setClienteId(cliente.getId());
+			System.out.println(cliente.getId());
+		}
+		direccionesRepository.saveAll(direcciones);
+		cliente.setDireccionesList(direcciones);
+		return cliente;
 	}
-
 
 	@Override
 	public Page<Clientes> getClientesPaginado(int page, int size) {
@@ -57,12 +56,10 @@ public class ClientesImpl implements ClientesInt {
 
 	@Override
 	public Page<Clientes> buscarPorCampos(String valor, int page, int size) {
-	 Pageable pageable = PageRequest.of(page, size);
+		Pageable pageable = PageRequest.of(page, size);
 		String valorMayuscula = valor.toUpperCase();
-		String valorConPorcentaje =  valorMayuscula.replace(" ", "%");
+		String valorConPorcentaje = valorMayuscula.replace(" ", "%");
 		return clientesRepository.findByNombreOrNitOrDpi(valorConPorcentaje, pageable);
 	}
-	
-	
 
 }

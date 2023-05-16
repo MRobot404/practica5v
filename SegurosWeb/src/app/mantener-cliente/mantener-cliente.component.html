@@ -59,10 +59,6 @@
                         </div>
                         <div class="row" *ngFor="let direccion of tempCliente.direccionesList">
                             &nbsp;
-                            <div class="row-md-12">
-                                <div class="btn btn-danger" *ngIf="!direccion.id"
-                                    (click)="eliminarDireccion(direccion)">Eliminar Dirección</div>
-                            </div>
                             <div class="row justify-content-md-center">
                                 <div class="col-10">
                                     <div class="form-group">
