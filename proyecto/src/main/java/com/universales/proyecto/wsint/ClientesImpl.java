@@ -1,5 +1,6 @@
 package com.universales.proyecto.wsint;
 
+import java.util.Date;
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
@@ -35,6 +36,9 @@ public class ClientesImpl implements ClientesInt {
 
 	@Override
 	public Clientes guardar(ClientesDTO clientes) {
+		Date date = new Date();
+		clientes.setGrabacionFecha(date);
+		clientes.setModificacionFecha(date);
 		Clientes cliente = modelMapper.map(clientes, Clientes.class);
 		List<Direcciones> direcciones = cliente.getDireccionesList();
 		cliente.setDireccionesList(null);

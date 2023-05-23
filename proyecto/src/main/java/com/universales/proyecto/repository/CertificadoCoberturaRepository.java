@@ -9,7 +9,7 @@ import org.springframework.data.domain.Pageable;
 import com.universales.proyecto.entity.CertificadoCobertura;
 
 
-@Repository("certificadoRepository")
+@Repository("certificadoCoberturaRepository")
 public interface CertificadoCoberturaRepository extends JpaRepository<CertificadoCobertura, Serializable> {
 
 	Page<CertificadoCobertura> findAll(Pageable pageable);

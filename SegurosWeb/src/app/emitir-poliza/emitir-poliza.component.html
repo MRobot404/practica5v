@@ -27,7 +27,8 @@
         [baseZIndex]="10000">
         <p-table [value]="coberturas" [paginator]="true" [rows]="sizePage" [lazy]="true" [totalRecords]="totalElements"
             [showCurrentPageReport]="true" (onPage)="onPageChange($event)"
-            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [rowsPerPageOptions]="[50]">
+            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+            [rowsPerPageOptions]="[1,2,3,4,50]">
             <ng-template pTemplate="header">
                 <tr>
                     <th>Descripción</th>
@@ -62,7 +63,6 @@
                 <th>Descripción</th>
                 <th>Costo</th>
                 <th>Suma Asegurada</th>
-                <th>Estado</th>
                 <th></th>
             </tr>
         </ng-template>
@@ -71,10 +71,6 @@
                 <td>{{cobertura.descripcion}}</td>
                 <td>{{cobertura.costo}}</td>
                 <td>{{cobertura.sumaAsegurada}}</td>
-                <td>
-                    <span *ngIf="cobertura.estado == 'A'">Activo</span>
-                    <span *ngIf="cobertura.estado == 'I'">Inactivo</span>
-                </td>
                 <td>
                     <p-button icon="pi pi-times" styleClass="p-button-raised p-button-text p-button-danger"
                         (click)="eliminar(cobertura)"></p-button>
@@ -99,35 +95,54 @@
         <div class="row" *ngFor="let certificado of certificados.certificadoslist">
             &nbsp;
             <div class="row-md-12">
-                <div class="btn btn-danger" (click)="eliminarCertificado(certificado)">Eliminar certificado</div>
+                <div class="btn btn-danger" (click)="eliminarCertificado(certificado)"><i class="pi pi-trash"></i></div>
             </div>
             <div class="row justify-content-md-center">
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <div class="form-group">
-                        <label>Código Contratante:</label>
+                        <label>Código contratante:</label>
                         <div class="input-group">
-                            <input type="text" class="form-control" disabled="true" required
+                            <input type="text" class="form-control border-0" disabled
                                 [value]="[certificado.contratante.nombre, certificado.contratante.apellido].join (' ')">
                             &nbsp;
                             <div class="input-group-append">
                                 <p-button icon="pi pi-search-plus" title="Agregar codigo contratante"
-                                    (click)="agregarCodigoContratante(certificado)"></p-button>
+                                    (click)="agregarCodigoContratante(certificado, 1)"></p-button>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <div class="form-group">
-                        <label>Código Asegurado:</label>
+                        <label>Código asegurado:</label>
                         <div class="input-group">
-                            <input type="text" class="form-control" [(ngModel)]="certificado.codigoAsegurado"
-                                [ngModelOptions]="{standalone:true}" [disabled]="codigoContratante" required
-                                [value]="certificado.codigoAsegurado">
+                            <input type="text" class="form-control border-0" disabled [required]="true"
+                                [value]="[certificado.asegurado.nombre, certificado.asegurado.apellido].join (' ')">
                             &nbsp;
                             <div class="input-group-append">
-                                <p-button icon="pi pi-search-plus" title="Agregar codigo asegurado"></p-button>
+                                <p-button icon="pi pi-search-plus" title="Agregar codigo asegurado"
+                                    (click)="agregarCodigoContratante(certificado, 2)"></p-button>
                             </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>Fecha inicio:</label>
+                        <div class="input-group">
+                            <input type="date" class="form-control border-0.5" required>
+                            &nbsp;
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>Fecha fin:</label>
+                        <div class="input-group">
+                            <input type="date" class="form-control border-0.5" required>
+                            &nbsp;
                         </div>
                     </div>
                 </div>
@@ -169,29 +184,69 @@
 
             &nbsp;&nbsp;
         </div>
-
-        <div class="row justify-content-md-center">
+        <div class="row justify-content-between">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>Código contratante:</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control border-0" disabled
+                        [value]="[polizaSeleccionada.nombre, polizaSeleccionada.apellido].join (' ')">
+                        &nbsp;
+                        <div class="input-group-append">
+                            <p-button icon="pi pi-search-plus" title="Agregar codigo contratante"
+                                (click)="agregarCodigoContratante(poliza,3)"></p-button>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="col-md-3">
                 <div class="form-group">
-                    <label>Prima total:</label>
+                    <label>Fecha inicio:</label>
                     <div class="input-group">
-                        <input type="text" class="form-control" [(ngModel)]="primaTotal"
-                            [ngModelOptions]="{standalone:true}" [disabled]="true" required>
+                        <input type="date" class="form-control border-0.5" required>
+                        &nbsp;
                     </div>
                 </div>
             </div>
 
             <div class="col-md-3">
                 <div class="form-group">
-                    <label>Suma asegurada:</label>
+                    <label>Fecha fin:</label>
                     <div class="input-group">
-                        <input type="text" class="form-control" [(ngModel)]="sumaAsegurada"
-                            [ngModelOptions]="{standalone:true}" [disabled]="true" required>
+                        <input type="date" class="form-control border-0.5" required>
+                        &nbsp;
                     </div>
                 </div>
             </div>
         </div>
-
+        <hr class="invisible">
+        <div class="row justify-content-start">
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label>Prima</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control border-0 bg-transparent"
+                            [ngModel]="primaTotal | currency:'Q'" [ngModelOptions]="{standalone:true}" disabled
+                            required>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label>Suma asegurada</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control border-0 bg-transparent"
+                            [ngModel]="sumaAsegurada | currency:'Q'" [ngModelOptions]="{standalone:true}" disabled
+                            required>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-end">
+            <div class="col-md-2">
+                <input type="submit" class="btn btn-success btn-lg rounded" value="Guardar">
+            </div>
+        </div>
         <br />
         <br />
     </form>

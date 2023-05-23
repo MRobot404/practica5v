@@ -25,7 +25,7 @@ public interface SegurosInt {
 	@GetMapping("/buscar")
 	public List<Seguros>buscar();
 
-	@PostMapping("/guardar")
+
 	Seguros guardar(@RequestBody  SegurosDTO seguros);
 	
 	@GetMapping("/paginar")
@@ -35,6 +35,9 @@ public interface SegurosInt {
 	public Page<Seguros> buscarPorCampos(@PathVariable("valor") String valor,
 		    @PathVariable("page") int page,
 		    @PathVariable("size") int size);
+
+	@PostMapping("/guardar")
+	Seguros agregarPoliza( @RequestBody SegurosDTO segurosDTO);
 	
 
 

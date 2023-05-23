@@ -10,6 +10,8 @@ import lombok.Data;
 
 @Data
 public class CertificadoCoberturaDTO {
+	
+	
 
 	 private Character estado;
 	 private String grabacionUsuario;

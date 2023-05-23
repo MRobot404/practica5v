@@ -39,8 +39,11 @@ export class EmitirPolizaComponent implements OnInit {
   primaTotal: any = 0;
   sumaAsegurada: any = 0;
   certificadoSeleccionado: any;
-
-
+  tipoClienteSeleccionado: number = 0;
+  visibleCodigoAsegurado: any;
+  poliza: any = [];
+  tipo: number = 0;
+  polizaSeleccionada: any = { seguro: [] };
   constructor(private messageService: MessageService, private coberturaService: CoberturasService, private clientesService: ClientesService) { }
 
   ngOnInit(): void {
@@ -73,9 +76,11 @@ export class EmitirPolizaComponent implements OnInit {
     this.tempCobertura = cobertura;
     let coberturaAgregada = false;
     for (var i = 0; i < this.coberturas.length; i++) {
-      if (this.coberturas[i].id == this.tempCobertura.id && !this.tempListCobertura.some((item: any) => item.id === this.tempCobertura.id)) {
+      if (!this.tempListCobertura.some((item: any) => item.id === this.tempCobertura.id)) {
         this.coberturas.splice(i, 1);
-        this.tempListCobertura.push(cobertura);
+        var temp: any = {};
+        temp = cobertura;
+        this.tempListCobertura.push(temp);
         this.tempPrimaTotal += this.tempCobertura.costo;
         this.tempSumaAsegurada += this.tempCobertura.sumaAsegurada;
         coberturaAgregada = true;
@@ -88,6 +93,7 @@ export class EmitirPolizaComponent implements OnInit {
       this.showErrorcoberturas();
     }
   }
+
   eliminar(cobertura: any) {
     const index = this.tempListCobertura.findIndex((c: any) => c.id === cobertura.id);
     if (index !== -1) {
@@ -99,7 +105,6 @@ export class EmitirPolizaComponent implements OnInit {
       this.coberturas.push(cobertura);
       this.calcularTotal()
     }
-
 
     if (this.tempListCobertura.length === 0) {
       this.tabla2 = false;
@@ -121,7 +126,7 @@ export class EmitirPolizaComponent implements OnInit {
 
   agregarCertificado() {
     this.sizePage2 = 10;
-    this.certificados.certificadoslist.push({ contratante: {} });
+    this.certificados.certificadoslist.push({ contratante: {}, asegurado: {} });
     this.calcularTotal();
   }
 
@@ -148,18 +153,65 @@ export class EmitirPolizaComponent implements OnInit {
   }
 
   guardarCertificado() {
-
+    let formulario: any = document.getElementById("formulario");
+    let valido = formulario.reportValidity();
+    if (!valido || !this.certificados || this.certificados.length <= 0 || !this.tempCobertura || this.tempCobertura.length <= 0) {
+      this.showErrorValidacion()
+    } else {
+      console.log("Si funciona");
+    }
   }
 
-  agregarCodigoContratante(certificado: any) {
+  agregarCodigoContratante(objeto: any, tipo: number) {
     this.visibleCodigoContratante = true;
-    this.certificadoSeleccionado = certificado;
+    console.log(objeto)
+    switch (tipo) {
+      case 1:
+        this.tipo = 1;
+        this.certificadoSeleccionado = objeto;
+        break;
+
+      case 2:
+        this.tipo = 2;
+        this.certificadoSeleccionado = objeto;
+        break;
+
+      case 3:
+        this.tipo = 3;
+        this.polizaSeleccionada = objeto;
+    }
+
+    this.tipoClienteSeleccionado = tipo;
   }
+
   crearCodigoContratante(cliente: any) {
     this.visibleCodigoContratante = false;
-    this.certificadoSeleccionado.codigoContratante = cliente.id;
-    this.certificadoSeleccionado.contratante = cliente;
+    switch (this.tipo) {
 
+      case 1:
+        this.certificadoSeleccionado.codigoContratante = cliente.id;
+        this.certificadoSeleccionado.contratante = cliente;
+        console.log(this.certificadoSeleccionado);
+        break;
+      case 2:
+        this.certificadoSeleccionado.codigoAsegurado = cliente.id;
+        this.certificadoSeleccionado.asegurado = cliente;
+        console.log(this.certificadoSeleccionado);
+        break;
+
+      case 3:
+        this.poliza.codigoContratante = cliente.id;
+        this.polizaSeleccionada = cliente;
+    }
+
+
+  }
+
+  crearCodigoAsegurado(cliente: any) {
+    this.visibleCodigoAsegurado = false;
+    this.certificadoSeleccionado.codigoAsegurado = cliente.id;
+    this.certificadoSeleccionado.asegurado = cliente;
+    console.log(this.certificadoSeleccionado);
   }
 
   onPageChangeClientes(event: any) {
@@ -187,5 +239,10 @@ export class EmitirPolizaComponent implements OnInit {
   showErrorcoberturas() {
     this.messageService.add({ severity: 'error', summary: 'Error', detail: 'La cobertura  ya fue agregada' });
   }
+
+  showErrorValidacion() {
+    this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Error de validación' });
+  }
+
 
 }

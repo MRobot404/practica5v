@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
-import com.universales.proyecto.entity.Siniestros;
+import com.universales.proyecto.entity.Coberturas;
 
 import lombok.Data;
 
@@ -25,5 +25,6 @@ public class CertificadosDTO implements Serializable {
 	private String modificacionUsuario;
 	private Date modificacionFecha;
 	private BigDecimal seguroId;
-	private List<Siniestros> siniestrosList;
+	
+	private List<Coberturas> coberturasList;
 }
