@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.RestController;
 
+import com.universales.proyecto.dto.ParametrosBusquedaPolizaDTO;
 import com.universales.proyecto.dto.SegurosDTO;
 import com.universales.proyecto.entity.Seguros;
 
@@ -25,19 +26,18 @@ public interface SegurosInt {
 	@GetMapping("/buscar")
 	public List<Seguros>buscar();
 
-
-	Seguros guardar(@RequestBody  SegurosDTO seguros);
-	
 	@GetMapping("/paginar")
 	Page<Seguros>getSegurosPaginado(int page, int size);
 	
-	@GetMapping("/mantenimiento/{valor}/{page}/{size}")
-	public Page<Seguros> buscarPorCampos(@PathVariable("valor") String valor,
+	@PostMapping("/mantenimiento/{page}/{size}")
+	public Page<Seguros> buscarPorCampos(@RequestBody ParametrosBusquedaPolizaDTO parametrosBusquedaPolizaDTO,
 		    @PathVariable("page") int page,
 		    @PathVariable("size") int size);
 
 	@PostMapping("/guardar")
 	Seguros agregarPoliza( @RequestBody SegurosDTO segurosDTO);
+
+	
 	
 
 

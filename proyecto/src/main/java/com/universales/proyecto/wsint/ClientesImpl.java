@@ -45,7 +45,6 @@ public class ClientesImpl implements ClientesInt {
 		clientesRepository.save(cliente);
 		for (Direcciones direccion : direcciones) {
 			direccion.setClienteId(cliente.getId());
-			System.out.println(cliente.getId());
 		}
 		direccionesRepository.saveAll(direcciones);
 		cliente.setDireccionesList(direcciones);

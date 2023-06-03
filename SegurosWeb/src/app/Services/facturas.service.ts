@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient} from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -7,16 +7,17 @@ import { Observable } from 'rxjs';
 })
 export class FacturasService {
   private readonly URL = 'auth/facturas/';
+
   constructor(private http: HttpClient) { }
 
   verTodosPaginado(page: number, size: number): Observable<any> {
-    return this.http
-      .get<any>(this.URL + 'paginar?page=' + page + "&size=" + size);
+    const url = `${this.URL}paginar?page=${page}&size=${size}`;
+    return this.http.get<any>(url);
   }
 
-  mantenimientoFacturas(parametro:any, page:number, size:number): Observable<any>{
-    return this.http
-    .get<any>(this.URL+'mantenimiento/'+ parametro+'/'+page+'/'+size);
+  mantenimientoFacturas(parametro: any, page: number, size: number): Observable<any> {
+    const url = `${this.URL}mantenimiento/${parametro}/${page}/${size}`;
+    return this.http.get<any>(url);
   }
-
 }
+

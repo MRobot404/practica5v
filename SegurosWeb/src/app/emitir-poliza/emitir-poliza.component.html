@@ -31,10 +31,10 @@
             [rowsPerPageOptions]="[1,2,3,4,50]">
             <ng-template pTemplate="header">
                 <tr>
-                    <th>Descripción</th>
-                    <th>Costo</th>
-                    <th>Suma Asegurada</th>
-                    <th></th>
+                    <th id="descripcion">Descripción</th>
+                    <th id="costo">Costo</th>
+                    <th id="sumaAsegurada">Suma Asegurada</th>
+                    <th id="th"></th>
                 </tr>
             </ng-template>
             <ng-template pTemplate="body" let-cobertura>
@@ -54,16 +54,16 @@
     &nbsp;&nbsp;
     <br />
 
-    <p-table *ngIf="tabla2" [value]="tempListCobertura" [paginator]="true" [rows]="sizePage" [lazy]="true"
+    <p-table *ngIf="tabla2" [value]=" coberturasList" [paginator]="true" [rows]="sizePage" [lazy]="true"
         [totalRecords]="totalElements" [showCurrentPageReport]="true" (onPage)="onPageChange($event)"
         currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
         [rowsPerPageOptions]="[1,2,3,5,10,25,50]">
         <ng-template pTemplate="header">
             <tr>
-                <th>Descripción</th>
-                <th>Costo</th>
-                <th>Suma Asegurada</th>
-                <th></th>
+                <th id="Descripción">Descripción</th>
+                <th id="Costo">Costo</th>
+                <th id="sumaAsegurada">Suma Asegurada</th>
+                <th id="th"></th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-cobertura>
@@ -131,7 +131,8 @@
                     <div class="form-group">
                         <label>Fecha inicio:</label>
                         <div class="input-group">
-                            <input type="date" class="form-control border-0.5" required>
+                            <input type="date" class="form-control border-0.5" [(ngModel)]="certificado.fechaInicio"
+                                [ngModelOptions]="{ standalone: true }" required>
                             &nbsp;
                         </div>
                     </div>
@@ -141,7 +142,8 @@
                     <div class="form-group">
                         <label>Fecha fin:</label>
                         <div class="input-group">
-                            <input type="date" class="form-control border-0.5" required>
+                            <input type="date" class="form-control border-0.5" [(ngModel)]="certificado.fechaFin"
+                                [ngModelOptions]="{ standalone: true }" required>
                             &nbsp;
                         </div>
                     </div>
@@ -157,11 +159,11 @@
                     [rowsPerPageOptions]="[1,2,3,5,10,25,50]">
                     <ng-template pTemplate="header">
                         <tr>
-                            <th>Nombre</th>
-                            <th>Apellido</th>
-                            <th>Nit</th>
-                            <th>Dpi</th>
-                            <th></th>
+                            <th id="nombre">Nombre</th>
+                            <th id="apellido">Apellido</th>
+                            <th id="nit">Nit</th>
+                            <th id="dpi">Dpi</th>
+                            <th id="th"></th>
                         </tr>
                     </ng-template>
                     <ng-template pTemplate="body" let-cliente>
@@ -185,15 +187,15 @@
             &nbsp;&nbsp;
         </div>
         <div class="row justify-content-between">
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <div class="form-group">
                     <label>Código contratante:</label>
                     <div class="input-group">
                         <input type="text" class="form-control border-0" disabled
-                        [value]="[polizaSeleccionada.nombre, polizaSeleccionada.apellido].join (' ')">
+                            [value]="[polizaSeleccionada.nombre, polizaSeleccionada.apellido].join(' ')">
                         &nbsp;
                         <div class="input-group-append">
-                            <p-button icon="pi pi-search-plus" title="Agregar codigo contratante"
+                            <p-button icon="pi pi-search-plus" title="Agregar código contratante"
                                 (click)="agregarCodigoContratante(poliza,3)"></p-button>
                         </div>
                     </div>
@@ -203,22 +205,35 @@
                 <div class="form-group">
                     <label>Fecha inicio:</label>
                     <div class="input-group">
-                        <input type="date" class="form-control border-0.5" required>
+                        <input type="date" class="form-control border-0.5" [(ngModel)]="poliza.fechaInicio"
+                            [ngModelOptions]="{ standalone: true }" required>
                         &nbsp;
                     </div>
                 </div>
             </div>
-
+        
             <div class="col-md-3">
                 <div class="form-group">
                     <label>Fecha fin:</label>
                     <div class="input-group">
-                        <input type="date" class="form-control border-0.5" required>
+                        <input type="date" class="form-control border-0.5" [(ngModel)]="poliza.fechaFin"
+                            [ngModelOptions]="{ standalone: true }" required>
+                        &nbsp;
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label>Tipo:</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control border-0.5" [(ngModel)]="poliza.tipo"
+                            [ngModelOptions]="{ standalone: true }" required>
                         &nbsp;
                     </div>
                 </div>
             </div>
         </div>
+        
         <hr class="invisible">
         <div class="row justify-content-start">
             <div class="col-md-2">
@@ -242,6 +257,7 @@
                 </div>
             </div>
         </div>
+        <hr class="invisible">
         <div class="row justify-content-end">
             <div class="col-md-2">
                 <input type="submit" class="btn btn-success btn-lg rounded" value="Guardar">

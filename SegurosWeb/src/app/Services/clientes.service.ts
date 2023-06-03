@@ -8,22 +8,16 @@ import { Observable } from 'rxjs';
 export class ClientesService {
   private readonly URL = 'auth/clientes/';
   constructor(private http: HttpClient) { }
-
   guardarCliente(cliente: any) {
-    return this.http
-      .post<any>(
-        this.URL + 'guardar',
-        cliente
-      )
+    return this.http.post<any>(`${this.URL}guardar`, cliente);
   }
 
   mantenimientoCliente(parametro: any, page: number, size: number): Observable<any> {
-    return this.http
-      .get<any>(this.URL + 'mantenimiento/' + parametro + '/' + page + '/' + size);
+    return this.http.get<any>(`${this.URL}mantenimiento/${parametro}/${page}/${size}`);
   }
 
-  verTodoPaginado(page:number, size:number): Observable<any>{
-    return this.http
-    .get<any>(this.URL+'paginar?page='+page+"&size="+size);
+  verTodoPaginado(page: number, size: number): Observable<any> {
+    return this.http.get<any>(`${this.URL}paginar?page=${page}&size=${size}`);
   }
+
 }

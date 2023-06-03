@@ -8,10 +8,14 @@ import { Observable } from 'rxjs';
 export class SegurosService {
   private readonly URL = 'auth/seguros/';
 
-  constructor(private http:HttpClient) { }
+  constructor(private http: HttpClient) { }
 
-  mantenimientoSeguro(parametro:any, page:number, size:number): Observable<any>{
+  mantenimientoSeguro(parametro: any, page: number, size: number): Observable<any> {
     return this.http
-    .get<any>(this.URL+'mantenimiento/'+parametro+'/'+page+'/'+size);
+    .post<any>(`${this.URL}mantenimiento/${page}/${size}`, parametro);
+  }
+
+  guardarSeguro(seguro: any) {
+    return this.http.post<any>(`${this.URL}guardar`, seguro);
   }
 }

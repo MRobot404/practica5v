@@ -22,6 +22,7 @@ export class ConsultarSiniestroComponent implements OnInit {
   tabla: boolean = false;
   tempSiniestro:any=[];
   ngOnInit(): void {
+    this.actualizarPagina(0, this.sizePage);
   }
 
   constructor(private siniestrosService: SiniestrosService, private messageService: MessageService) { }
@@ -30,9 +31,9 @@ export class ConsultarSiniestroComponent implements OnInit {
       this.valorDelInput = event.target.value;
       if (this.valorDelInput?.trim() !== '') {
         this.disabled = false;
-        this.tabla = false;
       } else {
         this.disabled = true;
+        this.tabla = false;
       }
     }
   }

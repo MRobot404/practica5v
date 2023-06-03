@@ -1,57 +1,92 @@
 <p-toast></p-toast>
 <div class="container">
-    <h1><i class="pi pi-eye" style="font-size: 2rem"></i>  Consulta de pólizas</h1>
+    <h1><i class="pi pi-eye" style="font-size: 2rem"></i> Consulta de pólizas</h1>
     <hr>
     <br>
-    <div class="container">
-        <form id="miFormulario">
-            <div class="row row-cols-2 row-cols-lg-4 g-2 g-lg-3">
+    <div class="container" *ngIf="viewParametro">
+        <form id="miFormulario" (ngSubmit)="buscar()">
+            <div class="row row-cols-2 row-cols-lg-4 g-2">
                 <div class="col">
-                    <div class="p-3">
-                        <label class="text-center">Número Poliza:</label>
-                        <input type="number" placeholder="Número poliza" class="form-control" />
-                    </div>
+                    <label class="text-center">Número Poliza:</label>
+                    <input type="number" placeholder="Número poliza" class="form-control" [(ngModel)]="parametros.id"
+                        [ngModelOptions]="{ standalone: true }" min="0" max="9999999" />
                 </div>
                 <div class="col">
-                    <div class="p-3">
-                        <label class="text-center">Fecha de inicio:</label>
-                        <input type="date" placeholder="Fecha de inicio" class="form-control" />
-                    </div>
+                    <label class="text-center">Fecha de inicio:</label>
+                    <input type="date" placeholder="Fecha de inicio" class="form-control"
+                        [(ngModel)]="parametros.fechaInicio" [ngModelOptions]="{ standalone: true }" />
                 </div>
                 <div class="col">
-                    <div class="p-3">
-                        <label class="text-center">Fecha de fin:</label>
-                        <input type="date" placeholder="Fecha fin" class="form-control" />
-                    </div>
+                    <label class="text-center">Fecha de fin:</label>
+                    <input type="date" placeholder="Fecha fin" class="form-control" [(ngModel)]="parametros.fechaFin"
+                        [ngModelOptions]="{ standalone: true }" />
                 </div>
                 <div class="col">
-                    <div class="p-3">
-                        <label class="text-center">Nombre del contratante:</label>
-                        <input type="text" placeholder="Nombre del contratante" class="form-control" />
-                    </div>
+                    <label class="text-center">Nombre del contratante:</label>
+                    <input type="text" placeholder="Nombre del contratante" class="form-control"
+                        [(ngModel)]="parametros.nombre" [ngModelOptions]="{ standalone: true }" />
                 </div>
                 <div class="col">
-                    <div class="p-3">
+                    <div class="p-1">
                         <label class="text-center">Nit del contratante:</label>
-                        <input type="text" placeholder="Nit del contratante" class="form-control" />
+                        <input type="text" placeholder="Nit del contratante" class="form-control"
+                            [(ngModel)]="parametros.nit" [ngModelOptions]="{ standalone: true }" />
                     </div>
                 </div>
                 <div class="col">
-                    <div class="p-3">
+                    <div class="p-1">
                         <label class="text-center">DPI del contratante:</label>
-                        <input type="number" placeholder="DPI del contratante" class="form-control" />
+                        <input type="text" placeholder="DPI del contratante" class="form-control"
+                            [(ngModel)]="parametros.dpi" [ngModelOptions]="{ standalone: true }" />
                     </div>
                 </div>
                 <div class="col">
                     <div class="p-3">
-                        <button  class="btn btn-danger btn-lg bi bi-eraser " (click)="cancelar()">
-                            Cancelar</button>
-                        &nbsp; &nbsp;
-                        <p-button label="Buscar" styleClass="p-button-primary" (click)="buscar()" class="text-center"
-                            icon="pi pi-search"></p-button>
+
+                        <button class="btn btn-danger btn-lg bi-eraser" (click)="cancelar()" type="button"></button>
+                        &nbsp;&nbsp;
+                        <button pButton styleClass="p-button-primary" type="submit" class="text-center"
+                            icon="pi pi-search"></button>
+
                     </div>
+
                 </div>
             </div>
         </form>
+    </div>
+    <div *ngIf="tabla" class="card">
+        <p-table [value]="seguros" [paginator]="true" [rows]="sizePage" [lazy]="true" [totalRecords]="totalElements"
+            [showCurrentPageReport]="true" (onPage)=onPageChange($event)
+            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+            [rowsPerPageOptions]="[1,2,3,5, 10, 25, 50]">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th id="tipo">Tipo</th>
+                    <th id="fechaInicio">Fecha Inicio</th>
+                    <th id="fechaFin">Fecha Fin</th>
+                    <th id="estado">Estado</th>
+                    <th id="certficados">Certificados</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-seguro>
+                <tr>
+                    <td>{{seguro.tipo}}</td>
+                    <td>{{seguro.fechaInicio | date}}</td>
+                    <td>{{seguro.fechaFin | date}}</td>
+                    <td> <span *ngIf="seguro.estado == 'A'">Activo</span>
+                        <span *ngIf="seguro.estado == 'I'">Inactivo</span>
+                    </td>
+                    <td>
+                        <ul *ngFor="let certficado of seguro.certificadosList">
+
+                        </ul>
+                    </td>
+                    <td>
+                        <p-button icon="pi pi-pencil" styleClass="p-button-rounded p-button-warning p-button-outlined"
+                            (click)="actualizar(seguro)"></p-button>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
     </div>
 </div>

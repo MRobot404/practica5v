@@ -44,9 +44,9 @@ export class MantenerCoberturaComponent implements OnInit {
       if (this.valorDelInput?.trim() !== '') {
         this.disabled = false;
         this.editar = false;
-        this.tabla = false;
       } else {
         this.disabled = true;
+        this.tabla = false;
       }
     }
   }

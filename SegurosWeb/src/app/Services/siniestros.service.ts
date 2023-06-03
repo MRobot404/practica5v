@@ -10,20 +10,17 @@ export class SiniestrosService {
 
   constructor(private http: HttpClient) { }
 
-  guardarSiniestro(siniestro: any) {
-    return this.http.post<any>(
-      this.URL + 'guardar',
-      siniestro
-    )
+  guardarSiniestro(siniestro: any): Observable<any> {
+    return this.http.post<any>(`${this.URL}guardar`, siniestro);
   }
 
   verTodosPaginado(page: number, size: number): Observable<any> {
-    return this.http
-      .get<any>(this.URL + 'paginar?page=' + page + "&size=" + size);
+    const url = `${this.URL}paginar?page=${page}&size=${size}`;
+    return this.http.get<any>(url);
   }
 
-  mantenimientoSiniestro(parametro:any, page:number, size:number): Observable<any>{
-    return this.http
-    .get<any>(this.URL+'mantenimiento/'+parametro+'/'+page+'/'+size);
+  mantenimientoSiniestro(parametro: any, page: number, size: number): Observable<any> {
+    const url = `${this.URL}mantenimiento/${parametro}/${page}/${size}`;
+    return this.http.get<any>(url);
   }
 }

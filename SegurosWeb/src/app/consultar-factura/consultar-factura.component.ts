@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FacturasService } from '../Services/facturas.service';
 
 @Component({
@@ -6,7 +6,7 @@ import { FacturasService } from '../Services/facturas.service';
   templateUrl: './consultar-factura.component.html',
   styleUrls: ['./consultar-factura.component.css']
 })
-export class ConsultarFacturaComponent implements OnInit {
+export class ConsultarFacturaComponent {
   listFacturas: any = [];
   valorDelInput?: string = '';
   value: string = '';
@@ -18,8 +18,7 @@ export class ConsultarFacturaComponent implements OnInit {
   totalPages: any;
   tempPage = 0;
   tabla: boolean = false;
-  ngOnInit(): void {
-  }
+
 
   constructor(private facturasService: FacturasService) { }
 
@@ -28,9 +27,10 @@ export class ConsultarFacturaComponent implements OnInit {
       this.valorDelInput = event.target.value;
       if (this.valorDelInput?.trim() !== '') {
         this.disabled = false;
-        this.tabla = false;
+        
       } else {
         this.disabled = true;
+        this.tabla = false;
       }
     }
   }

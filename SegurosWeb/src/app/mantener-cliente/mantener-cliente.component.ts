@@ -113,7 +113,6 @@ export class MantenerClienteComponent implements OnInit {
   guardar() {
     if (this.estado.estado != '') {
       this.tempCliente.estado = this.estado.estado;
-    }if(this.tempCliente.direccionesList.estado != ''){
     }
     this.clientesService.guardarCliente(this.tempCliente).subscribe(
       (response: any) => {

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { CoberturasService } from '../Services/coberturas.service';
 import { ClientesService } from '../Services/clientes.service';
+import { SegurosService } from '../Services/seguros.service';
 
 @Component({
   selector: 'app-emitir-poliza',
@@ -24,7 +25,7 @@ export class EmitirPolizaComponent implements OnInit {
   totalElements: any;
   totalPages: any;
   tempPage = 0;
-  tempListCobertura: any = [];
+  coberturasList: any = [];
   tempCobertura: any;
   estado: any;
   visible: boolean = false;
@@ -41,14 +42,28 @@ export class EmitirPolizaComponent implements OnInit {
   certificadoSeleccionado: any;
   tipoClienteSeleccionado: number = 0;
   visibleCodigoAsegurado: any;
-  poliza: any = [];
+  poliza: any = {};
   tipo: number = 0;
   polizaSeleccionada: any = { seguro: [] };
-  constructor(private messageService: MessageService, private coberturaService: CoberturasService, private clientesService: ClientesService) { }
+  constructor(private messageService: MessageService, private coberturaService: CoberturasService, private clientesService: ClientesService, private segurosService: SegurosService) { }
 
   ngOnInit(): void {
     this.actualizarPaginaCoberturas(this.tempPage, this.sizePage);
     this.actualizarPaginaClientes(this.tempPage, this.sizePage);
+    this.generarNuevaPoliza();
+  }
+
+
+  generarNuevaPoliza() {
+    this.poliza.tipo = null;
+    this.poliza.fechaInicio = null;
+    this.poliza.fechaFin = null;
+    this.poliza.codigoContratante = null;
+    this.poliza.nombreContratanteP = "";
+    this.poliza.primaTotal = null;
+    this.poliza.sumaAsegurada = null;
+    this.poliza.estado = 'a';
+    this.poliza.certificadosList = null;
   }
 
   showDialog() {
@@ -75,12 +90,12 @@ export class EmitirPolizaComponent implements OnInit {
   crearCobertura(cobertura: any) {
     this.tempCobertura = cobertura;
     let coberturaAgregada = false;
-    for (var i = 0; i < this.coberturas.length; i++) {
-      if (!this.tempListCobertura.some((item: any) => item.id === this.tempCobertura.id)) {
+    for (let i = 0; i < this.coberturas.length; i++) {
+      if (!this.coberturasList.some((item: any) => item.id === this.tempCobertura.id)) {
         this.coberturas.splice(i, 1);
-        var temp: any = {};
+        let temp: any = {};
         temp = cobertura;
-        this.tempListCobertura.push(temp);
+        this.coberturasList.push(temp);
         this.tempPrimaTotal += this.tempCobertura.costo;
         this.tempSumaAsegurada += this.tempCobertura.sumaAsegurada;
         coberturaAgregada = true;
@@ -95,9 +110,9 @@ export class EmitirPolizaComponent implements OnInit {
   }
 
   eliminar(cobertura: any) {
-    const index = this.tempListCobertura.findIndex((c: any) => c.id === cobertura.id);
+    const index = this.coberturasList.findIndex((c: any) => c.id === cobertura.id);
     if (index !== -1) {
-      const coberturaEliminada = this.tempListCobertura.splice(index, 1)[0];
+      const coberturaEliminada = this.coberturasList.splice(index, 1)[0];
       this.tempPrimaTotal -= coberturaEliminada.costo;
       this.tempPrimaTotal = Math.max(0, this.tempPrimaTotal);
       this.tempSumaAsegurada -= coberturaEliminada.sumaAsegurada;
@@ -106,15 +121,15 @@ export class EmitirPolizaComponent implements OnInit {
       this.calcularTotal()
     }
 
-    if (this.tempListCobertura.length === 0) {
+    if (this.coberturasList.length === 0) {
       this.tabla2 = false;
     }
   }
 
 
   eliminarCoberturas() {
-    this.tempListCobertura.splice(0, this.tempListCobertura.length);
-    if (this.tempListCobertura.length === 0) {
+    this.coberturasList.splice(0, this.coberturasList.length);
+    if (this.coberturasList.length === 0) {
       this.tabla2 = false;
     }
     this.actualizarPaginaCoberturas(this.tempPage, this.sizePage);
@@ -126,11 +141,9 @@ export class EmitirPolizaComponent implements OnInit {
 
   agregarCertificado() {
     this.sizePage2 = 10;
-    this.certificados.certificadoslist.push({ contratante: {}, asegurado: {} });
+    this.certificados.certificadoslist.push({ contratante: {}, asegurado: {}, coberturasList: this.coberturasList });
     this.calcularTotal();
   }
-
-
 
   eliminarCertificados() {
     this.certificados.certificadoslist.push({});
@@ -148,8 +161,11 @@ export class EmitirPolizaComponent implements OnInit {
 
   calcularTotal() {
     const cantidadCertificados = this.certificados.certificadoslist.length;
+
     this.sumaAsegurada = this.tempSumaAsegurada * cantidadCertificados;
     this.primaTotal = this.tempPrimaTotal * cantidadCertificados;
+    this.poliza.primaTotal = this.primaTotal;
+    this.poliza.sumaAsegurada = this.sumaAsegurada;
   }
 
   guardarCertificado() {
@@ -158,13 +174,22 @@ export class EmitirPolizaComponent implements OnInit {
     if (!valido || !this.certificados || this.certificados.length <= 0 || !this.tempCobertura || this.tempCobertura.length <= 0) {
       this.showErrorValidacion()
     } else {
-      console.log("Si funciona");
+      this.poliza.certificadosList = this.certificados.certificadoslist;
+      console.log(this.poliza);
+      this.segurosService.guardarSeguro(this.poliza).subscribe(
+        (response: any) => {
+          setTimeout(() => {
+            this.showSuccesscoberturas()
+            this.poliza = [];
+            this.limpiarTodo();
+          }, 500);
+        }
+      );
     }
   }
 
   agregarCodigoContratante(objeto: any, tipo: number) {
     this.visibleCodigoContratante = true;
-    console.log(objeto)
     switch (tipo) {
       case 1:
         this.tipo = 1;
@@ -186,33 +211,28 @@ export class EmitirPolizaComponent implements OnInit {
 
   crearCodigoContratante(cliente: any) {
     this.visibleCodigoContratante = false;
+    this.certificadoSeleccionado.sumaAsegurada = this.tempSumaAsegurada;
+    this.certificadoSeleccionado.prima = this.tempPrimaTotal;
     switch (this.tipo) {
-
       case 1:
         this.certificadoSeleccionado.codigoContratante = cliente.id;
         this.certificadoSeleccionado.contratante = cliente;
-        console.log(this.certificadoSeleccionado);
         break;
       case 2:
         this.certificadoSeleccionado.codigoAsegurado = cliente.id;
         this.certificadoSeleccionado.asegurado = cliente;
-        console.log(this.certificadoSeleccionado);
         break;
 
       case 3:
         this.poliza.codigoContratante = cliente.id;
         this.polizaSeleccionada = cliente;
+        console.log(this.certificados)
+        break;
     }
 
 
   }
 
-  crearCodigoAsegurado(cliente: any) {
-    this.visibleCodigoAsegurado = false;
-    this.certificadoSeleccionado.codigoAsegurado = cliente.id;
-    this.certificadoSeleccionado.asegurado = cliente;
-    console.log(this.certificadoSeleccionado);
-  }
 
   onPageChangeClientes(event: any) {
     let pagina: number = event.first / this.sizePage2;
@@ -231,9 +251,21 @@ export class EmitirPolizaComponent implements OnInit {
     );
   }
 
+  limpiarTodo() {
+    this.certificados.certificadoslist.splice(0, this.certificados.certificadoslist.length);
+    this.coberturasList.splice(0, this.coberturasList.length);
+    if (this.coberturasList.length === 0) {
+      this.tabla2 = false;
+    }
+    this.actualizarPaginaCoberturas(this.tempPage, this.sizePage);
+    this.tempSumaAsegurada = 0;
+    this.tempPrimaTotal = 0;
+    this.sumaAsegurada = 0;
+    this.primaTotal = 0;
+  }
 
   showSuccesscoberturas() {
-    this.messageService.add({ severity: 'success', summary: 'Actualizada', detail: 'Su cobertura fue actualizada' });
+    this.messageService.add({ severity: 'success', summary: 'Creado', detail: 'Su seguro fue creado' });
   }
 
   showErrorcoberturas() {

@@ -2,8 +2,6 @@ package com.universales.proyecto.wsint;
 
 
 import java.util.List;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +19,6 @@ import com.universales.proyecto.ws.FacturasInt;
 @Component
 public class FacturasImpl implements FacturasInt {
 
-	Logger logger = LogManager.getLogger(Facturas.class);
 
 	@Autowired
 	FacturasRepository facturasRepository;

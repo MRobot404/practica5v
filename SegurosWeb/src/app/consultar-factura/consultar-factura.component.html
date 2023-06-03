@@ -1,42 +1,35 @@
 <div class="container">
-    <h1><i class="pi pi-eye" style="font-size: 2rem"></i>  Consulta de factura</h1>
+    <h1><i class="pi pi-eye" style="font-size: 2rem"></i> Consulta de factura</h1>
     <hr>
-<br>
-<div style="display: flex; align-items: center;">
-    <input type="text" class="form-control" #inputElement (input)="evaluarValorInput($event)" required />
-    &nbsp; &nbsp;
-    <p-button label="Buscar" styleClass="p-button-primary" (click)="buscar()" class="text-center"
-        [disabled]="disabled" icon="pi pi-search"></p-button>
-</div>
-<br>
-<div *ngIf="tabla" class="card">
-    <p-table [value]="facturas" [paginator]="true" [rows]="sizePage" [lazy]="true" [totalRecords]="totalElements"
-        [showCurrentPageReport]="true" (onPage)=onPageChange($event)
-        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-        [rowsPerPageOptions]="[1,2,3,5, 10, 25, 50]">
-        <ng-template pTemplate="header">
-            <tr>
-                <th>Fecha</th>
-                <th>Monto</th>
-                <th>Estado</th>
-                <th>Grabación usuario</th>
-                <th>Grabación fecha</th>
-                <th>Modificación usuario</th>
-                <th>Modificación fecha</th>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-factura>
-            <tr>
-                <td>{{factura.fecha | date}}</td>
-                <td>{{factura.monto |currency:'Q' }}</td>
-                <td> <span *ngIf="factura.estado == 'A'">Activo</span>
-                    <span *ngIf="factura.estado == 'I'">Inactivo</span></td>
-                <td>{{factura.grabacionUsuario}}</td>
-                <td>{{factura.grabacionFecha |date:'dd/MM/yyyy HH:mm:ss'}}</td>
-                <td>{{factura.modificacionUsuario}}</td>
-                <td>{{factura.modificacionFecha |date:'dd/MM/yyyy HH:mm:ss'}}</td>
-            </tr>
-        </ng-template>
-    </p-table>
-</div>
+    <br>
+    <div style="display: flex; align-items: center;">
+        <input type="text" class="form-control" #inputElement (input)="evaluarValorInput($event)" required />
+        &nbsp; &nbsp;
+        <p-button label="Buscar" styleClass="p-button-primary" (click)="buscar()" class="text-center"
+            [disabled]="disabled" icon="pi pi-search"></p-button>
+    </div>
+    <br>
+    <div *ngIf="tabla" class="card">
+        <p-table [value]="facturas" [paginator]="true" [rows]="sizePage" [lazy]="true" [totalRecords]="totalElements"
+            [showCurrentPageReport]="true" (onPage)=onPageChange($event)
+            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+            [rowsPerPageOptions]="[1,2,3,5, 10, 25, 50]">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th id="fecha">Fecha</th>
+                    <th id="monto">Monto</th>
+                    <th id="estado">Estado</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-factura>
+                <tr>
+                    <td>{{factura.fecha | date}}</td>
+                    <td>{{factura.monto |currency:'Q' }}</td>
+                    <td> <span *ngIf="factura.estado == 'A'">Activo</span>
+                        <span *ngIf="factura.estado == 'I'">Inactivo</span>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
 </div>

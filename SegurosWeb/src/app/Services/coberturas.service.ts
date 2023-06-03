@@ -7,24 +7,20 @@ import { Observable } from 'rxjs';
 })
 export class CoberturasService {
   private readonly URL = 'auth/coberturas/';
+
   constructor(private http: HttpClient) { }
 
   guardarCobertura(cobertura: any) {
-
-    return this.http
-      .post<any>(
-        this.URL + 'guardar',
-        cobertura
-      )
-
+    return this.http.post<any>(`${this.URL}guardar`, cobertura);
   }
+
   mantenimientoCliente(parametro: any, page: number, size: number): Observable<any> {
-    return this.http
-      .get<any>(this.URL + 'mantenimiento/' + parametro + '/' + page + '/' + size);
+    const url = `${this.URL}mantenimiento/${parametro}/${page}/${size}`;
+    return this.http.get<any>(url);
   }
 
-  verTodoPaginado(page:number, size:number): Observable<any>{
-    return this.http
-    .get<any>(this.URL + 'paginar?page=' + page + "&size=" + size);
+  verTodoPaginado(page: number, size: number): Observable<any> {
+    const url = `${this.URL}paginar?page=${page}&size=${size}`;
+    return this.http.get<any>(url);
   }
 }
