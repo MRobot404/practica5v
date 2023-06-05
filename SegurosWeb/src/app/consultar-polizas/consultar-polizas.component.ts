@@ -41,6 +41,7 @@ export class ConsultarPolizasComponent  implements OnInit{
       this.tabla = true;
       this.actualizarPagina(0, this.sizePage);
   }
+
   }
 
   onPageChange(event: any) {
@@ -52,6 +53,7 @@ export class ConsultarPolizasComponent  implements OnInit{
   }
 
   actualizarPagina(page: number, size: number) {
+    console.log(this.parametros);
     this.segurosService.mantenimientoSeguro(this.parametros, page, size).subscribe(
       res => {
         this.listSeguros = res;

@@ -1,0 +1,12 @@
+<form (ngSubmit)="login()" id="login">
+    <div class="card flex justify-content-center align-items-center" style="height: 100vh;">
+        <label htmlFor="usuario">Usuario</label>
+            <input pInputText id="usuario" [(ngModel)]="usuario.usuario" [ngModelOptions]="{ standalone: true }" />
+        <br>
+        <label for="contraseña">Contraseña</label>
+            <p-password [(ngModel)]="usuario.contrasena" [ngModelOptions]="{ standalone: true }" [feedback]="false"
+                [toggleMask]="true"></p-password>
+        <br>
+        <p-button label="Ingresar" type="submit" styleClass="p-button-raised"></p-button>
+    </div>
+</form>

@@ -10,18 +10,21 @@ import { MantenerCoberturaComponent } from './mantener-cobertura/mantener-cobert
 import { CrearSiniestroComponent } from './crear-siniestro/crear-siniestro.component';
 import { ConsultarPolizasComponent } from './consultar-polizas/consultar-polizas.component';
 import { EmitirPolizaComponent } from './emitir-poliza/emitir-poliza.component';
+import { LoginComponent } from './login/login.component';
+import { GuardGuard } from './guard.guard';
 
 const routes: Routes = [
-  {path:'', component:HomeComponent},
-  {path:'crearCliente', component:CrearClienteComponent},
-  {path:'mantenerCliente',component:MantenerClienteComponent},
-  {path:'consultarFactura',component:ConsultarFacturaComponent},
-  {path:'consultarSiniestro',component:ConsultarSiniestroComponent},
-  {path:'crearCobertura', component:CrearCoberturaComponent},
-  {path:'mantenerCobertura', component:MantenerCoberturaComponent},
-  {path:'crearSiniestro', component:CrearSiniestroComponent},
-  {path:'consultarPoliza', component:ConsultarPolizasComponent},
-  {path:'emitirPoliza', component:EmitirPolizaComponent}
+  {path:'', component:LoginComponent},
+  {path:'home', component:HomeComponent ,canActivate: [GuardGuard] },
+  {path:'crearCliente', component:CrearClienteComponent,canActivate: [GuardGuard]},
+  {path:'mantenerCliente',component:MantenerClienteComponent,canActivate: [GuardGuard]},
+  {path:'consultarFactura',component:ConsultarFacturaComponent,canActivate: [GuardGuard]},
+  {path:'consultarSiniestro',component:ConsultarSiniestroComponent,canActivate: [GuardGuard]},
+  {path:'crearCobertura', component:CrearCoberturaComponent,canActivate: [GuardGuard]},
+  {path:'mantenerCobertura', component:MantenerCoberturaComponent,canActivate: [GuardGuard]},
+  {path:'crearSiniestro', component:CrearSiniestroComponent,canActivate: [GuardGuard]},
+  {path:'consultarPoliza', component:ConsultarPolizasComponent,canActivate: [GuardGuard]},
+  {path:'emitirPoliza', component:EmitirPolizaComponent,canActivate: [GuardGuard]}
 ];
 
 @NgModule({

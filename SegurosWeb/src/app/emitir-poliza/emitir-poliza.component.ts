@@ -171,11 +171,12 @@ export class EmitirPolizaComponent implements OnInit {
   guardarCertificado() {
     let formulario: any = document.getElementById("formulario");
     let valido = formulario.reportValidity();
+
     if (!valido || !this.certificados || this.certificados.length <= 0 || !this.tempCobertura || this.tempCobertura.length <= 0) {
       this.showErrorValidacion()
     } else {
       this.poliza.certificadosList = this.certificados.certificadoslist;
-      console.log(this.poliza);
+
       this.segurosService.guardarSeguro(this.poliza).subscribe(
         (response: any) => {
           setTimeout(() => {
@@ -189,6 +190,7 @@ export class EmitirPolizaComponent implements OnInit {
   }
 
   agregarCodigoContratante(objeto: any, tipo: number) {
+
     this.visibleCodigoContratante = true;
     switch (tipo) {
       case 1:
@@ -217,6 +219,7 @@ export class EmitirPolizaComponent implements OnInit {
       case 1:
         this.certificadoSeleccionado.codigoContratante = cliente.id;
         this.certificadoSeleccionado.contratante = cliente;
+
         break;
       case 2:
         this.certificadoSeleccionado.codigoAsegurado = cliente.id;
@@ -226,7 +229,6 @@ export class EmitirPolizaComponent implements OnInit {
       case 3:
         this.poliza.codigoContratante = cliente.id;
         this.polizaSeleccionada = cliente;
-        console.log(this.certificados)
         break;
     }
 

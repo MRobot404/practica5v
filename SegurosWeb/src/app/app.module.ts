@@ -10,7 +10,7 @@ import { FormsModule } from '@angular/forms';
 import { HomeComponent } from './home/home.component';
 import { CrearClienteComponent } from './crear-cliente/crear-cliente.component';
 import { ToastModule } from 'primeng/toast';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule,HTTP_INTERCEPTORS} from '@angular/common/http';
 import { MantenerClienteComponent } from './mantener-cliente/mantener-cliente.component';
 import { DropdownModule } from 'primeng/dropdown';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -23,13 +23,17 @@ import { MessagesModule } from 'primeng/messages';
 import { PaginatorModule } from 'primeng/paginator';
 import { ConsultarSiniestroComponent } from './consultar-siniestro/consultar-siniestro.component';
 import { CrearCoberturaComponent } from './crear-cobertura/crear-cobertura.component';
-import { InputTextareaModule } from 'primeng/inputtextarea';
+import {  InputTextareaModule } from 'primeng/inputtextarea';
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { MantenerCoberturaComponent } from './mantener-cobertura/mantener-cobertura.component';
 import { CrearSiniestroComponent } from './crear-siniestro/crear-siniestro.component';
 import { ConsultarPolizasComponent } from './consultar-polizas/consultar-polizas.component';
 import { EmitirPolizaComponent } from './emitir-poliza/emitir-poliza.component';
 import { DialogModule } from 'primeng/dialog';
+import { LoginComponent } from './login/login.component';
+import { DividerModule } from 'primeng/divider';
+import { InputTextModule } from 'primeng/inputtext';
+import { AuthInterceptorService } from './auth.interceptor.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -45,6 +49,7 @@ import { DialogModule } from 'primeng/dialog';
     CrearSiniestroComponent,
     ConsultarPolizasComponent,
     EmitirPolizaComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
@@ -64,9 +69,15 @@ import { DialogModule } from 'primeng/dialog';
     PasswordModule,
     InputTextareaModule,
     InputSwitchModule,
-    DialogModule
+    DialogModule,
+    DividerModule,
+    InputTextModule
   ],
-  providers: [],
+  providers: [  {
+    provide: HTTP_INTERCEPTORS,
+    useClass: AuthInterceptorService,
+    multi: true,
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
