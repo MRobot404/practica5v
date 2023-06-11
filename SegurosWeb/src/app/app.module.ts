@@ -34,6 +34,7 @@ import { LoginComponent } from './login/login.component';
 import { DividerModule } from 'primeng/divider';
 import { InputTextModule } from 'primeng/inputtext';
 import { AuthInterceptorService } from './auth.interceptor.service';
+import { TreeTableModule } from 'primeng/treetable';
 @NgModule({
   declarations: [
     AppComponent,
@@ -71,7 +72,8 @@ import { AuthInterceptorService } from './auth.interceptor.service';
     InputSwitchModule,
     DialogModule,
     DividerModule,
-    InputTextModule
+    InputTextModule,
+    TreeTableModule
   ],
   providers: [  {
     provide: HTTP_INTERCEPTORS,

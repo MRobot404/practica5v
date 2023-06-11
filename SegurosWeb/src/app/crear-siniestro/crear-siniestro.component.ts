@@ -64,15 +64,16 @@ export class CrearSiniestroComponent implements OnInit {
     this.tabla = true;
     this.showDialog()
     this.editar = false;
-    this.actualizarPagina(0, this.sizePage);
+ 
   }
 
+  
   onPageChange(event: any) {
     let pagina: number = event.first / this.sizePage;
     this.sizePage = event.rows;
-    this.actualizarPagina(pagina, this.sizePage);
-  }
 
+  }
+/*
   actualizarPagina(page: number, size: number) {
     this.seguroService.mantenimientoSeguro(this.valorDelInput, page, size).subscribe(
       res => {
@@ -83,7 +84,7 @@ export class CrearSiniestroComponent implements OnInit {
       },
     );
   }
-
+*/
   agregar(seguro: any) {
     this.seguros = seguro;
     console.log(this.seguros);

@@ -23,7 +23,6 @@ export class LoginComponent implements OnInit  {
     let formulario: any = document.getElementById('login');
     let formularioValido: boolean = formulario.reportValidity();
     this.errorInicio = false;
-    console.log(this.usuario);
     if (formularioValido) {
       this.loginServices
         .login(this.usuario)

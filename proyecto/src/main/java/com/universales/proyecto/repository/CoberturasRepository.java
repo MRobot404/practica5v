@@ -1,6 +1,7 @@
 package com.universales.proyecto.repository;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -18,4 +19,6 @@ public interface CoberturasRepository extends JpaRepository<Coberturas, Serializ
 	
 	@Query(value = "SELECT * FROM COBERTURAS WHERE UPPER(ESTADO||DESCRIPCION||DESCRIPCION||ESTADO) LIKE %?1%", nativeQuery = true)
 	Page<Coberturas>findByEstadoOrDescripcion(String valor, Pageable pageable);
+	
+	Coberturas findById(BigDecimal id);
 }

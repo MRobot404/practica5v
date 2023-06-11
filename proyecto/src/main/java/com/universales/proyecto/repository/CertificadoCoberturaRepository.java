@@ -1,6 +1,8 @@
 package com.universales.proyecto.repository;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -13,5 +15,7 @@ import com.universales.proyecto.entity.CertificadoCobertura;
 public interface CertificadoCoberturaRepository extends JpaRepository<CertificadoCobertura, Serializable> {
 
 	Page<CertificadoCobertura> findAll(Pageable pageable);
+	
+	List<CertificadoCobertura> findAllByCertificadoId(BigDecimal id);
 	
 }

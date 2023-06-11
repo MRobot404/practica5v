@@ -8,64 +8,82 @@ import { SegurosService } from '../Services/seguros.service';
   styleUrls: ['./consultar-polizas.component.css'],
   providers: [MessageService]
 })
-export class ConsultarPolizasComponent  implements OnInit{
+export class ConsultarPolizasComponent implements OnInit {
 
-  parametros: any = {};
+  busqueda: string = "";
+  fechaInicio: string = "";
+  fechaFin: string = "";
   sizePage = 10;
   totalElements: any;
   totalPages: any;
   tempPage = 0;
-  listSeguros:any =[];
-  seguros:any =[];
-  tabla:boolean=false;
-  viewParametro:boolean=false;
+  listSeguros: any = [];
+  seguros: any = [];
+  tabla: boolean = false;
+  tabla2: boolean = false;
+  viewParametro: boolean = false;
+  valorDelInput?: string = '';
+  seguroTemp: any = { certificadosList: [] };
 
 
-  constructor(private messageService: MessageService, private segurosService:SegurosService) { }
+  constructor(private messageService: MessageService, private segurosService: SegurosService) { }
+
+  evaluarValorInput(event: any) {
+    if (event.target instanceof HTMLInputElement) {
+      this.valorDelInput = event.target.value;
+      if (this.valorDelInput?.trim() == '') {
+        this.tabla = false;
+      }
+    }
+  }
 
   ngOnInit(): void {
-    this.viewParametro=true;
+    this.viewParametro = true;
   }
 
   cancelar() {
-    const formulario = document.querySelector('#miFormulario') as HTMLFormElement;
-    const inputs = formulario.querySelectorAll('input');
-    inputs.forEach((input) => (input.value = ''));
-    this.tabla=false;
+    this.busqueda = '';
+    this.fechaInicio = '';
+    this.fechaFin = '';
+    this.tabla = false;
   }
 
-  buscar() {
-    let formulario: any = document.getElementById("miFormulario");
-    let valido = formulario.reportValidity();
-    if(valido){ 
-      this.tabla = true;
-      this.actualizarPagina(0, this.sizePage);
+  buscar(event: any) {
+    this.tabla = true;
+    if (event.target.value != '') {
+      this.actualizarPagina(this.busqueda.toLocaleLowerCase(), this.fechaInicio.toString(), this.fechaFin.toString());
+    } else {
+      this.tabla = false;
+    }
   }
 
-  }
 
-  onPageChange(event: any) {
-    let pagina: number = event.first / this.sizePage
-    this.actualizarPagina(pagina, this.sizePage);
-    let sizeTmp: number = event.rows
-    this.sizePage = sizeTmp;
-    this.actualizarPagina(pagina, this.sizePage);
-  }
 
-  actualizarPagina(page: number, size: number) {
-    console.log(this.parametros);
-    this.segurosService.mantenimientoSeguro(this.parametros, page, size).subscribe(
+  actualizarPagina(busqueda: any, fechaInicio: any, fechaFin: any) {
+    const busquedaValor = busqueda || "";
+    const fechaInicioValor = fechaInicio || "";
+    const fechaFinValor = fechaFin || "";
+    this.segurosService.mantenimientoSeguro(busquedaValor, fechaInicioValor, fechaFinValor).subscribe(
       res => {
-        this.listSeguros = res;
-        this.seguros = this.listSeguros.content;
-        this.totalElements = this.listSeguros.totalElements;
-        this.totalPages = this.listSeguros.totalPages;
+        this.seguros = res;
       },
     );
   }
 
-  actualizar(seguro:any){
-    console.log(seguro);
+
+
+
+  actualizar(seguro: any) {
+    this.tabla = false;
+    this.viewParametro = false;
+    this.tabla2 = true;
+    this.segurosService.buscarPorId(seguro.id).subscribe(
+      res => {
+        this.seguroTemp = res;
+        console.log(this.seguroTemp);
+      },
+    );
+
   }
 
   showSuccessPolizas() {

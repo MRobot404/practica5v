@@ -1,6 +1,5 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient,HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -10,12 +9,23 @@ export class SegurosService {
 
   constructor(private http: HttpClient) { }
 
-  mantenimientoSeguro(parametro: any, page: number, size: number): Observable<any> {
-    return this.http
-    .post<any>(`${this.URL}mantenimiento/${page}/${size}`, parametro);
+  mantenimientoSeguro(busqueda: string, fechaInicio: string, fechaFin: string) {
+    let queryParams = new HttpParams();
+    queryParams = queryParams
+      .append("busqueda", busqueda)
+      .append("fechaInicio", fechaInicio)
+      .append("fechaFin", fechaFin);
+
+    return this.http.get<any>(`${this.URL}mantenimiento`, { params: queryParams })
   }
 
   guardarSeguro(seguro: any) {
     return this.http.post<any>(`${this.URL}guardar`, seguro);
   }
+
+  buscarPorId(id: any) {
+    return this.http.get<any>(`${this.URL}buscar/por/${id}`);
+  }
+  
+  
 }

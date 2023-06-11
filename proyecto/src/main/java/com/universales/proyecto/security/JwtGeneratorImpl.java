@@ -15,7 +15,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 public class JwtGeneratorImpl implements JwtGeneratorInterface {
 	private static final String SECRET = "secret";
 	private static final String MESSAGE = "Token generado exitosamente";
-	private static final long TOKENVALIDITYINSECONS = 3600;
+	private static final long TOKENVALIDITYINSECONS = 36000;
 	
 	@Override
 	public Map<String, String> generateToken(Usuarios usuarios) {

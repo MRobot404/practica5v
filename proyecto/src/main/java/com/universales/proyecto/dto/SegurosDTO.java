@@ -23,6 +23,7 @@ public class SegurosDTO {
 	 private Date grabacionFecha;
 	 private String modificacionUsuario;
 	 private Date modificacionFecha;
+	 private String nombreContratanteP;
 	 private List<CertificadosDTO> certificadosList;
 	 private List<Facturas> facturasList;
 }
