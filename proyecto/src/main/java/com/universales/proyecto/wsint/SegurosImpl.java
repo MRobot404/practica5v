@@ -179,7 +179,7 @@ public class SegurosImpl implements SegurosInt {
 	   
 	   
 	   for(CertificadoCobertura tempDetCobertura: detCoberturas) {
-		   Coberturas tempCobertura = coberturasRepository.findById(tempDetCobertura.getCertificadoCoberturaPK().getCertificados());
+		   Coberturas tempCobertura = coberturasRepository.findById(tempDetCobertura.getCertificadoCoberturaPK().getCoberturas());
 		   CoberturasDTO cobertura = modelMapper.map(tempCobertura, CoberturasDTO.class);
 		   coberturas.add(cobertura);
 	   }
@@ -187,8 +187,8 @@ public class SegurosImpl implements SegurosInt {
 	   Clientes tempContratante = clientesRepository.findById(certificado.getCodigoContratante());
 	   Clientes tempAsegurado = clientesRepository.findById(certificado.getCodigoAsegurado());
 	   
-	   tempCert.setNombreContratante(tempContratante.getNit()+" - "+tempContratante.getNombre()+" - "+tempContratante.getApellido()+" - "+tempContratante.getDpi());
-	   tempCert.setNombreAsegurado(tempAsegurado.getNit()+" - "+tempAsegurado.getNombre()+" - "+tempAsegurado.getApellido()+" - "+tempAsegurado.getDpi());
+	   tempCert.setNombreContratante(tempContratante.getNombre()+" "+tempContratante.getApellido());
+	   tempCert.setNombreAsegurado(tempAsegurado.getNombre()+" "+tempAsegurado.getApellido());
 	   
 	   tempCert.setCoberturasList(coberturas);
 	   certificadosDTO.add(tempCert);
@@ -198,7 +198,7 @@ public class SegurosImpl implements SegurosInt {
 	
 	Clientes tempContratante = clientesRepository.findById(tempSeguro.getCodigoContratante());
 	
-	seguro.setNombreContratanteP(tempContratante.getNit()+" - "+tempContratante.getNombre()+" - "+tempContratante.getApellido()+" - "+tempContratante.getDpi());
+	seguro.setNombreContratanteP(tempContratante.getNombre()+" "+tempContratante.getApellido());
 	
 	seguro.setCertificadosList(certificadosDTO);
 	

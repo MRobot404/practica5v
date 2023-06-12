@@ -35,6 +35,7 @@ import { DividerModule } from 'primeng/divider';
 import { InputTextModule } from 'primeng/inputtext';
 import { AuthInterceptorService } from './auth.interceptor.service';
 import { TreeTableModule } from 'primeng/treetable';
+import { DatePipe } from '@angular/common';
 @NgModule({
   declarations: [
     AppComponent,
@@ -73,13 +74,15 @@ import { TreeTableModule } from 'primeng/treetable';
     DialogModule,
     DividerModule,
     InputTextModule,
-    TreeTableModule
+    TreeTableModule,
   ],
   providers: [  {
     provide: HTTP_INTERCEPTORS,
     useClass: AuthInterceptorService,
     multi: true,
-  }],
+  },
+  DatePipe
+],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

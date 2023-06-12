@@ -154,10 +154,10 @@ export class EmitirPolizaComponent implements OnInit {
   }
 
 
-  eliminarCertificado(certificado: any) {
-    this.certificados.certificadoslist.splice(this.certificados.certificadoslist.indexOf(certificado), 1);
-    this.calcularTotal();
-  }
+    eliminarCertificado(certificado: any) {
+      this.certificados.certificadoslist.splice(this.certificados.certificadoslist.indexOf(certificado), 1);
+      this.calcularTotal();
+    }
 
   calcularTotal() {
     const cantidadCertificados = this.certificados.certificadoslist.length;
@@ -176,7 +176,8 @@ export class EmitirPolizaComponent implements OnInit {
       this.showErrorValidacion()
     } else {
       this.poliza.certificadosList = this.certificados.certificadoslist;
-
+      console.log(this.poliza);
+ /*
       this.segurosService.guardarSeguro(this.poliza).subscribe(
         (response: any) => {
           setTimeout(() => {
@@ -186,6 +187,7 @@ export class EmitirPolizaComponent implements OnInit {
           }, 500);
         }
       );
+      */
     }
   }
 

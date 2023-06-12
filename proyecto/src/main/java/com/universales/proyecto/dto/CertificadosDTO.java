@@ -5,7 +5,6 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
-
 import lombok.Data;
 
 @Data
@@ -26,6 +25,6 @@ public class CertificadosDTO implements Serializable {
 	private BigDecimal seguroId;
 	private String nombreContratante;
 	private String nombreAsegurado;
-	
+
 	private List<CoberturasDTO> coberturasList;
 }
