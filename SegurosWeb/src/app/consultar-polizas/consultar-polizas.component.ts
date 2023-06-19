@@ -159,10 +159,10 @@ export class ConsultarPolizasComponent implements OnInit {
         this.poliza.fechaFin = this.datePipe.transform(res.fechaFin, formatoDestino);
         this.poliza.id = this.seguroTemp.id;
         this.poliza.codigoContratante=this.seguroTemp.codigoContratante;
-        for (let i = 0; i < this.certificados.certificadoslist.length; i++) {
-          this.certificados.certificadoslist[i].fechaInicio = this.datePipe.transform(this.certificados.certificadoslist[i].fechaInicio, formatoDestino);
-          this.certificados.certificadoslist[i].fechaFin = this.datePipe.transform(this.certificados.certificadoslist[i].fechaFin, formatoDestino);
-        }
+        for (let certificado of this.certificados.certificadoslist) {
+          certificado.fechaInicio = this.datePipe.transform(certificado.fechaInicio, formatoDestino);
+          certificado.fechaFin = this.datePipe.transform(certificado.fechaFin, formatoDestino);
+        }        
       },
     );
   }
@@ -204,9 +204,8 @@ export class ConsultarPolizasComponent implements OnInit {
   }
 
   guardarCertificado() {
-    let formulario: any = document.getElementById("formulario");
-    let valido = formulario.reportValidity();
-    this.calcularTotal()
+
+    this.calcularTotal();
     this.poliza.certificadosList = this.certificados.certificadoslist;
     console.log(this.poliza);
     this.segurosService.guardarSeguro(this.poliza).subscribe(

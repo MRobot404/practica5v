@@ -161,7 +161,6 @@ export class EmitirPolizaComponent implements OnInit {
 
   calcularTotal() {
     const cantidadCertificados = this.certificados.certificadoslist.length;
-
     this.sumaAsegurada = this.tempSumaAsegurada * cantidadCertificados;
     this.primaTotal = this.tempPrimaTotal * cantidadCertificados;
     this.poliza.primaTotal = this.primaTotal;
@@ -177,7 +176,7 @@ export class EmitirPolizaComponent implements OnInit {
     } else {
       this.poliza.certificadosList = this.certificados.certificadoslist;
       console.log(this.poliza);
- /*
+ 
       this.segurosService.guardarSeguro(this.poliza).subscribe(
         (response: any) => {
           setTimeout(() => {
@@ -187,7 +186,6 @@ export class EmitirPolizaComponent implements OnInit {
           }, 500);
         }
       );
-      */
     }
   }
 
